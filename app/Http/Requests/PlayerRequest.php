@@ -80,10 +80,8 @@ class PlayerRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        dd($this);
         $this->merge([
             'slug' => Str::slug($this->first_name . ' ' . $this->last_name),
-            'user_id' => auth()->id()
         ]);
     }
 

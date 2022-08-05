@@ -35,7 +35,7 @@
 
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue'
-import { useForm } from '@inertiajs/inertia-vue3'
+import { useForm, usePage } from '@inertiajs/inertia-vue3'
 
 export default {
     props: {
@@ -48,7 +48,9 @@ export default {
     setup(props) {
         const form = useForm({
             first_name: "",
-            last_name: ""
+            last_name: "",
+            user_id: usePage().props.value.auth.user.id
+
         })
         return { form }
     }

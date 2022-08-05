@@ -42,6 +42,7 @@ import { useForm } from '@inertiajs/inertia-vue3'
 export default {
     props: {
         player: Object,
+        user: Object,
         errors: Object
     },
     components:{
@@ -53,8 +54,10 @@ export default {
             last_name: ""
         })
         return { form }
-    }
-        
+    },
+    mounted() {
+        console.log(this.user)
+    },
     
 
 

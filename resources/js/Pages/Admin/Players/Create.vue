@@ -48,7 +48,8 @@ export default {
     setup(props) {
         const form = useForm({
             first_name: "",
-            last_name: ""
+            last_name: "",
+            user_id: props.user.id
         })
         return { form }
     }

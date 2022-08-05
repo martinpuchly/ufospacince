@@ -27,7 +27,7 @@ class PlayerController extends Controller
             $player = new Player($request->validated());
             $player->status = 1;
             $player->save();
-            return redirect()->route('admin.players')->with('succeed', 'Žiadosť o hráčky profil bola poslaná.');
+            return redirect()->route('admin.players')->with('succeed', 'Hráčky profil bol vytvorený.');
         }
 
     //USER
@@ -39,15 +39,15 @@ class PlayerController extends Controller
 
         public function store(PlayerRequest $request){
             $player = Player::create($request->validated());
-            return redirect()->route('')->with('succeed', 'Žiadosť o hráčky profil bola poslaná.');
+            return redirect()->route('/')->with('succeed', 'Žiadosť o hráčky profil bola poslaná.');
         }
 
-    public function edit(Player $player){
-
-        $player = Auth::user()->player;
-        dd($player);
+    public function edit(Player $player=null){
+        
+        $player = !$player ? auth()->user()->player : $player;
         return Inertia::render('Players/Edit',[
-            'player'=>$player
+            'player'=>$player,
+            'user'=>$player->user
         ]);
     }
 
