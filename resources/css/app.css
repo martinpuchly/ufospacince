@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* HEAD */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply mt-3 mb-2 font-mono font-bold text-sky-900 underline;
+  }
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+  h5 {
+    @apply text-lg;
+  }
+
+  /* TABLE */
+  table {
+    @apply border-2 border-gray-500;
+  }
+  td,
+  th {
+    @apply border-2  border-gray-500 px-2  py-1;
+  }
+  thead {
+    @apply bg-sky-800 font-semibold text-white;
+  }
+
+  .side_menu h1 {
+    @apply mt-3 text-lg font-semibold text-sky-900 underline;
+  }
+  .side_menu_block {
+    @apply border-b-2 border-double border-gray-500 border-opacity-30 pb-3;
+  }
+  .side_menu_new {
+    @apply rounded border-2 border-gray-700 border-opacity-10 p-2 text-sm leading-4 shadow-md shadow-black;
+  }
+  /* asdasd/ */
+  .text-danger {
+    @apply font-semibold text-red-500;
+  }
+
+  header a {
+    @apply text-white
+  }
+  header .menu_link{
+    @apply text-red-600
+  }
+
+}
+
+@layer components {
+  .form-group {
+    @apply block sm:inline-block;
+  }
+
+  label {
+    @apply mr-2 block font-bold text-sky-800 opacity-90 sm:inline-block;
+  }
+
+  input[type="text"] {
+    @apply rounded border-2 border-gray-200 px-1 focus:border-sky-500;
+  }
+
+  .btn {
+    @apply mt-2 rounded-md px-4 py-1;
+  }
+  .btn-primary {
+    @apply border-b-4 border-b-sky-700 bg-sky-900 text-white hover:bg-sky-700 hover:opacity-80;
+  }
+  .btn-danger {
+    @apply border-b-4  border-b-red-700 bg-red-600 text-white hover:opacity-80;
+  }
+  .btn-secondary {
+    @apply border-b-4 border-b-cyan-600 bg-cyan-800 text-white hover:bg-cyan-600 hover:opacity-80;
+  }
+  .btn-sm {
+    @apply py-0 px-2 text-sm;
+  }
+
+  .btn-lg {
+    @apply text-lg;
+  }
+}
