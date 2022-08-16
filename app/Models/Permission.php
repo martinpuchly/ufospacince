@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['name', 'key', 'main_name', 'route', 'link_in_admin_menu'];
+    public $timestamps = false;
 
 
     public function groups(){
