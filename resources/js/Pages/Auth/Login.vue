@@ -31,7 +31,7 @@ const submit = () => {
 
 <template>
     <AppLayout>
-        <Head title="Log in" />
+        <Head title="Prihlásiť" />
         <div class="w-50 mx-auto">
             <div v-if="status" class="text-danger">
                 {{ status }}

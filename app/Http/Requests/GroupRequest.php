@@ -11,7 +11,7 @@ class GroupRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class GroupRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules():array
     {
         return [
             'name' => 'required|min:3|max:255|unique:groups,name,'.$this->id,
@@ -29,7 +29,7 @@ class GroupRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages():array
     {
         return   [
             'name.required' => 'Musíš vyplniť názov skupiny.',

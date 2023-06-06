@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PlayerController;
 
 
 /*
@@ -67,5 +68,13 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::patch('/povolenia/skupina/{group}', [PermissionController::class, 'groupSave'])->middleware('can:setGroup,App\Models\Permission');
 
 
+    #HRAC
+    Route::get('/hrac/novy/{user_id?}', [PlayerController::class, 'create'])->name('player.add')->middleware('can:create,App\Models\Player');
+    Route::post('/hrac/novy', [PlayerController::class, 'store'])->middleware('can:create,App\Models\Player');
+
 
 });
+
+
+Route::get('/hrac/upravit/{player?}', [PlayerController::class, 'edit'])->name('player.edit')->middleware('can:edit,player');
+Route::patch('/hrac/upravit/{player?}', [PlayerController::class, 'update'])->middleware('can:edit,player');

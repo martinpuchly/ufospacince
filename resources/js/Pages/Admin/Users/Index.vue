@@ -30,6 +30,9 @@
                                     <Link :href="route('admin.permissions.user', user.id)" title="pridať povolenia" class="btn btn-sm btn-secondary col-3 mx-2">
                                         povolenia
                                     </Link>
+                                    <Link :href="route('admin.player.add', user.id)" title="vytvoriť hráča" class="btn btn-sm btn-warning col-3 mx-2">
+                                        vytvoriť hráča
+                                    </Link>
                                 </div>
 
                             </td>

@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class);
     }
 
+    public function player(): Relation
+    {
+        return $this->hasOne(Player::class);
+    }
+
     private function allPermissions()
     {
         $permmissions = [];

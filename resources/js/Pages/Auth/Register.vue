@@ -22,7 +22,7 @@ const submit = () => {
 
 <template>
     <AppLayout>
-        <Head title="Register" />
+        <Head title="Registrácia" />
         <div class="w-50 mx-auto">
        
             <h1>Registrácia</h1>
