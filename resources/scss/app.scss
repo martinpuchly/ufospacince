@@ -1,0 +1,58 @@
+@import "bootstrap/scss/bootstrap";
+
+
+$p-color: #005a8c;
+$s-color: lighten($p-color, 10%);
+
+body{
+    background: rgb(53,68,110);
+    background: linear-gradient(180deg, rgba(53,68,110,1) 0%, rgba(53,68,110,0.5074404761904762) 070%);
+    background-attachment: fixed;
+    min-height: 100%;
+}
+.app{
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.row{
+    padding: 0;
+}
+.container{
+    background-color: white;
+    min-height: 100%;
+    padding: 0;
+
+}
+
+.form-label{
+    color: $p-color;
+    font-weight: 500;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6{
+    color: $p-color;
+}
+
+.header-title{
+    color: $p-color;
+    font-size: 3.2rem;
+    line-height: 3rem;
+}
+
+.header-subtitle{
+    color: $s-color;
+    font-size: 1.8rem;
+    line-height: 3rem;
+    margin-left: 5rem;
+    font-style: italic;
+}
+
+
+.btn-primary{
+    background-color: $p-color;
+}
+.btn-primary:hover{
+    background-color: lighten($p-color, 5%);
+}
