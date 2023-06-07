@@ -39,13 +39,13 @@ class PlayerController extends Controller
     public function store(PlayerRequest $request)
     {
         $player = Player::create($request->only(['first_name', 'last_name', 'slug']));
-        return redirect()->route('admin.player.edit', ['player'=>$player->id])->with('succeed', 'Hráč bol vytvorený.');
+        return redirect()->route('player.edit', ['player'=>$player->id])->with('succeed', 'Hráč bol vytvorený.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Player $player)
+    public function show($player_slug)
     {
         //
     }
@@ -55,10 +55,12 @@ class PlayerController extends Controller
      */
     public function edit(Player $player=null)
     {
-        if(!$player){
-            $player = Auth::user()->player;
-        }
-        dd($player);
+
+        $player = !$player ? Auth::user()->player : $player;    //ak nie je definovaný hráč, pôjde sa editovať profil hráča prihláseného užívateľa
+        return Inertia::render('Player/Edit', [
+            'player'=>$player,
+            'show_options'=>Player::SHOW_OPTIONS
+        ]);
         
     }
 
@@ -67,14 +69,20 @@ class PlayerController extends Controller
      */
     public function update(PlayerRequest $request, Player $player=null)
     {
-        //
+        $player = !$player ? Auth::user()->player : $player;    //ak nie je definovaný hráč, pôjde sa editovať profil hráča prihláseného užívateľa
+        $player->fill($request->all());
+        return redirect()->route('player.edit', ['player'=>$player->id])->with('succeed', 'Hráč bol upravený.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Player $player)
+    public function destroy(Player $player, Player $player=null)
     {
-        //
+        $player = !$player ? Auth::user()->player : $player;
+        $player->delete();
+
+        return redirect()->route('player.edit', ['player'=>$player->id])->with('succeed', 'Hráč bol upravený.');
+
     }
 }

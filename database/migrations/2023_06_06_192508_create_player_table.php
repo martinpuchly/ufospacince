@@ -24,14 +24,17 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->text('about')->nullable();
 
-            $table->boolean('show_first_name')->default(0);
-            $table->boolean('show_last_name')->default(0);
-            $table->boolean('show_nickname')->default(0);
-            $table->boolean('show_birst_date')->default(0);
-            $table->boolean('show_shirt_number')->default(0);
-            $table->boolean('show_photo')->default(0);
-            $table->boolean('show_about')->default(0);
-            $table->boolean('show_user')->default(0);
+            $table->integer('show_first_name')->nullable()->default(0);
+            $table->integer('show_last_name')->nullable()->default(0);
+            $table->integer('show_nickname')->nullable()->default(0);
+            $table->integer('show_birst_date')->nullable()->default(0);
+            $table->integer('show_shirt_number')->nullable()->default(0);
+            $table->integer('show_photo')->nullable()->default(0);
+            $table->integer('show_about')->nullable()->default(0);
+            $table->integer('show_user')->nullable()->default(0);
+
+            $table->boolean('active')->default(1);
+            $table->softDeletes();
 
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
 
@@ -45,8 +48,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('players', function (Blueprint $table) {
-            Schema::dropIfExists('player_user_id_foreign');
-
+            $table->dropIfExists('player_user_id_foreign');
+            $table->dropSoftDeletes();
         });
     }
 };

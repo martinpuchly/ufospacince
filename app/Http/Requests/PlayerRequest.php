@@ -49,11 +49,17 @@ class PlayerRequest extends FormRequest
             'first_name.required' => 'Meno hráča je povinný údaj.',
             'first_name.min' => 'Meno hráča musí obsahovať :min znakov.',
             'first_name.max' => 'Meno hráča môže obsahovať :max znakov.',
-
             'last_name.required' => 'Priezvisko hráča je povinný údaj.',
             'last_name.min' => 'Priezvisko hráča musí obsahovať :min znakov.',
             'last_name.max' => 'Priezvisko hráča môže obsahovať :max znakov.',
-
+            'nickname.min' => 'Prezývka musí obsahovať :min znakov.',
+            'nickname.max' => 'Prezývka hráča môže obsahovať :max znakov.',
+            'shirt_number.min' => 'Číslo dresu musí byť celé číslo 0-99.',
+            'shirt_number.max' => 'Číslo dresu musí byť celé číslo 0-99.',
+            'shirt_number.integer' => 'Číslo dresu musí byť celé číslo 0-99.',
+            'photo.image' => 'Neplatný formát fotky hráča.',
+            'about.min' => 'O mne môže musí obsahovať :min znakov.',
+            'about.max' => 'O mne môže obsahovať :max znakov.',
         ];
     }
 
