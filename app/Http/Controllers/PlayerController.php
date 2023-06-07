@@ -9,7 +9,7 @@ use Inertia\Response as InertiaResponse;
 use App\Models\User;
 use App\Http\Requests\PlayerRequest;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\RedirectResponse;
 
 class PlayerController extends Controller
 {
@@ -24,21 +24,22 @@ class PlayerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(User $user = null): InertiaResponse
+    public function create(User $user=null): InertiaResponse | RedirectResponse
     {
+        if($user && $user->player){
+            return redirect()->route('player.edit', ['player'=>$user->player->id])->with('succeed', 'Tento užívateľ už má vytvorený profil hráča.');
+        }
         return Inertia::render('Admin/Players/Create', [
-            'user_id'=>$user ? $user->id : null,
-            'username'=>$user ? $user->name : null,
-
+            'user'=>$user ? $user : null
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PlayerRequest $request)
+    public function store(PlayerRequest $request, User $user=null)
     {
-        $player = Player::create($request->only(['first_name', 'last_name', 'slug']));
+        $player = Player::create(array_merge($request->only(['first_name', 'last_name', 'slug']), ['user_id'=>$user ? $user->id : null]));
         return redirect()->route('player.edit', ['player'=>$player->id])->with('succeed', 'Hráč bol vytvorený.');
     }
 
@@ -77,7 +78,7 @@ class PlayerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Player $player, Player $player=null)
+    public function destroy(Player $player=null)
     {
         $player = !$player ? Auth::user()->player : $player;
         $player->delete();

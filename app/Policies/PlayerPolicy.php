@@ -28,7 +28,7 @@ class PlayerPolicy
 
     public function edit(User $user, Player $player=null): bool | Response
     {
-        if($user->hasPermission('player-edit') && $player){
+        if($user->hasPermission('player-edit') && $player!=null){
             return true;
         }
         if($user->player() && $player==null){

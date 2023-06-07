@@ -69,8 +69,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
 
     #HRAC
-    Route::get('/hrac/novy/{user_id?}', [PlayerController::class, 'create'])->name('player.add')->middleware('can:create,App\Models\Player');
-    Route::post('/hrac/novy', [PlayerController::class, 'store'])->middleware('can:create,App\Models\Player');
+    Route::get('/hrac/novy/{user?}', [PlayerController::class, 'create'])->name('player.add')->middleware('can:create,App\Models\Player');
+    Route::post('/hrac/novy/{user?}', [PlayerController::class, 'store'])->middleware('can:create,App\Models\Player');
 
 
 });

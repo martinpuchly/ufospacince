@@ -1,7 +1,7 @@
 <template>
     <AppLayout>
         <h1>Vytvoriť profil hráča</h1>
-        <h3>Užívateľ: {{ username }}</h3>
+        <h3>Užívateľ: {{ user ? user.name : "nepriradený" }}</h3>
         <form @submit.prevent="submit" >
             <div class="row">
                 <div class="col-md-6">
@@ -37,19 +37,18 @@
 
 
     const props = defineProps({
-        user_id: BigInt,
-        username: String,
+        user: Object,
         errors: Object
     })
 
     const form = useForm({
-            user_id: props.user_id,
+            user_id: props.user ? props.user.id : null,
             first_name: null,
             last_name: null,
         })
 
     const submit = () => {
-        form.post(route('admin.player.add'))
+        form.post(route('admin.player.add', {user: props.user.id}))
     }
 
 </script>
