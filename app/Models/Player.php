@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Player extends Pivot
@@ -24,7 +24,7 @@ class Player extends Pivot
         3 => "všetci",
     ];
 
-    public function user(): Relation
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

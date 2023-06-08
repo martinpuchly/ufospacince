@@ -73,6 +73,15 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::post('/hrac/novy/{user?}', [PlayerController::class, 'store'])->middleware('can:create,App\Models\Player');
 
 
+    #SLIDER
+    Route::get('/slider/novy', [SlideController::class, 'create'])->name('slide.add')->middleware('can:create,App\Models\Slide');
+    Route::post('/slider/novy', [SlideController::class, 'store'])->middleware('can:create,App\Models\Slide');
+    Route::get('/slider/upravit/{slide}', [SlideController::class, 'edit'])->name('slide.edit')->middleware('can:edit,App\Models\Slide');
+    Route::patch('/slider/upravit/{slide}', [SlideController::class, 'update'])->middleware('can:edit,App\Models\Slide');
+    Route::delete('/slider/vymazat/{slide}', [SlideController::class, 'delete'])->middleware('can:delete,App\Models\Slide');
+
+
+
 });
 
 

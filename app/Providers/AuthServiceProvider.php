@@ -17,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
         App\Models\Permission::class => App\Policies\PermissionPolicy::class,
         App\Models\User::class => App\Policies\UserPolicy::class,
         App\Models\Player::class => App\Policies\PlayerPolicy::class,
+        App\Models\Slide::class => App\Policies\SlidePolicy::class,
     ];
 
     /**
