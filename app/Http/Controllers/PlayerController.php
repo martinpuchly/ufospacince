@@ -51,6 +51,9 @@ class PlayerController extends Controller
      */
     public function store(PlayerRequest $request, User $user=null)
     {
+        if ($request->image && $request->image->isValid()) {
+            $path = $request->image->store('images/slides/');
+        }
         $player = Player::create(array_merge($request->only(['first_name', 'last_name', 'slug']), ['user_id'=>$user ? $user->id : null]));
         return redirect()->route('player.edit', ['player'=>$player->id])->with('succeed', 'Hráč bol vytvorený.');
     }
