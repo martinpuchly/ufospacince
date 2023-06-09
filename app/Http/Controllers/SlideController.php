@@ -36,8 +36,7 @@ class SlideController extends Controller
 
     public function update(SlideRequest $request, Slide $slide): RedirectResponse
     {
-        $slide->fill($request->only(['title', 'description', 'link', 'image', 'position', 'active']));
-        $slide->save();
+        $slide->update($request->only(['title', 'description', 'link', 'image', 'position', 'active']));
         return redirect()->route('admin.slide.edit', ['slide'=>$slide->id])->with('succeed', 'Slide bol vytvorený.');
     }
 

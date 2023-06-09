@@ -12,4 +12,9 @@ class Slide extends Model
 
     protected $fillable = ['title', 'description', 'link', 'image', 'position', 'active'];
 
+
+    
+
+
+    
 }
