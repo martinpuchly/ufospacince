@@ -12,22 +12,16 @@ class GroupPolicy
 
     /**
      * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): Response|bool
     {
         return $user->hasPermission('groups');
     }
 
     /**
      * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function setUser(User $user)
+    public function setUser(User $user): Response|bool
     {
         return $user->hasPermission('user-groups');
     }
@@ -35,11 +29,8 @@ class GroupPolicy
     
     /**
      * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): Response|bool
     {
         if($user->hasPermission('group-add')){
             return true;
@@ -49,11 +40,8 @@ class GroupPolicy
 
     /**
      * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function update(User $user): Response|bool
     {
         if($user->hasPermission('group-edit')){
             return true;
@@ -63,11 +51,8 @@ class GroupPolicy
 
     /**
      * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user)
+    public function delete(User $user): Response|bool
     {
         if($user->hasPermission('group-delete')){
             return true;

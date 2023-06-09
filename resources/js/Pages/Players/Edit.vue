@@ -1,7 +1,7 @@
 <template>
     <AppLayout>
         <h1>Upraviť profil hráča</h1>
-        <h3>{{ username }}</h3>
+        <h3>{{ user_name }}</h3>
         <form @submit.prevent="submit" >
             <div class="row">
                 <div class="col-md-6">
@@ -75,13 +75,76 @@
             </div>
 
             <div class="mb-3 row">
-                <label for="show_nickname" class="col-sm-2 col-form-label">Zobraziť priezvisko: </label>
+                <label for="show_nickname" class="col-sm-2 col-form-label">Zobraziť prezývku: </label>
                 <div class="col-sm-10">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_nickname" v-model="form.show_nickname">
                         <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
                     </select>
                     <div v-if="errors.show_nickname" class="text-danger">
                         {{ errors.show_nickname }}
+                    </div>    
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="show_birth_date" class="col-sm-2 col-form-label">Zobraziť dátum narodenia/vek: </label>
+                <div class="col-sm-10">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_birth_date" v-model="form.show_birth_date">
+                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                    </select>
+                    <div v-if="errors.show_birth_date" class="text-danger">
+                        {{ errors.show_birth_date }}
+                    </div>    
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="show_shirt_number" class="col-sm-2 col-form-label">Zobraziť číslo dresu: </label>
+                <div class="col-sm-10">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_shirt_number" v-model="form.show_shirt_number">
+                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                    </select>
+                    <div v-if="errors.show_shirt_number" class="text-danger">
+                        {{ errors.show_shirt_number }}
+                    </div>    
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="show_photo" class="col-sm-2 col-form-label">Zobraziť fotku: </label>
+                <div class="col-sm-10">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_photo" v-model="form.show_photo">
+                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                    </select>
+                    <div v-if="errors.show_photo" class="text-danger">
+                        {{ errors.show_photo }}
+                    </div>    
+                </div>
+            </div>
+
+            
+            <div class="mb-3 row">
+                <label for="show_about" class="col-sm-2 col-form-label">Zobraziť fotku: </label>
+                <div class="col-sm-10">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_about" v-model="form.show_about">
+                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                    </select>
+                    <div v-if="errors.show_about" class="text-danger">
+                        {{ errors.show_about }}
+                    </div>    
+                </div>
+            </div>
+
+
+            
+            <div class="mb-3 row" v-if="player.user_id != undefined">
+                <label for="show_user" class="col-sm-2 col-form-label">Zobraziť pridružený užívateľský profil: </label>
+                <div class="col-sm-10">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_user" v-model="form.show_user">
+                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                    </select>
+                    <div v-if="errors.show_user" class="text-danger">
+                        {{ errors.show_user }}
                     </div>    
                 </div>
             </div>
@@ -105,6 +168,7 @@
 
     const props = defineProps({
         player: Object,
+        user_name: String,
         show_options: Object,
         errors: Object
     })
@@ -114,7 +178,7 @@
     const form = useForm({
             id: props.player.id,
             nickname: props.player.nickname,
-            birst_date: props.player.birst_date,
+            birth_date: props.player.birth_date,
             shirt_number: props.player.shirt_number,
             photo: null,
             about: props.player.about,
@@ -122,7 +186,7 @@
             show_first_name: props.player.show_first_name,
             show_last_name: props.player.show_last_name,
             show_nickname: props.player.show_nickname,
-            show_birst_date: props.player.show_birst_date,
+            show_birth_date: props.player.show_birth_date,
             show_shirt_number: props.player.show_shirt_number,
             show_photo: props.player.show_photo,
             show_about: props.player.show_about,

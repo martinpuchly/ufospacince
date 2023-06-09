@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('show_player')->default(1);
 
             $table->string('nickname')->nullable();
-            $table->date('birst_date')->nullable();
+            $table->date('birth_date')->nullable();
             $table->integer('shirt_number')->nullable();
             $table->string('photo')->nullable();
             $table->text('about')->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('show_first_name')->nullable()->default(0);
             $table->integer('show_last_name')->nullable()->default(0);
             $table->integer('show_nickname')->nullable()->default(0);
-            $table->integer('show_birst_date')->nullable()->default(0);
+            $table->integer('show_birth_date')->nullable()->default(0);
             $table->integer('show_shirt_number')->nullable()->default(0);
             $table->integer('show_photo')->nullable()->default(0);
             $table->integer('show_about')->nullable()->default(0);

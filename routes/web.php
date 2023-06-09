@@ -47,30 +47,31 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
 Route::name('admin.')->prefix('admin')->group(function () {
 
-    Route::get('/uzivatelia', [UserController::class, 'index'])->name('users')->middleware('can:adminViewAny,App\Models\User');
+    Route::get('/uzivatelia', [UserController::class, 'index'])->name('users')->can('adminViewAny', App\Models\User::class);
 
     #SKUPINY
-    Route::get('/skupiny', [GroupController::class, 'index'])->name('groups')->middleware('can:viewAny,App\Models\Group');
-    Route::post('/skupiny', [GroupController::class, 'store'])->name('groups.add')->middleware('can:create,App\Models\Group');
-    Route::get('/skupiny/upravit/{group}', [GroupController::class, 'edit'])->name('group.edit')->middleware('can:update,App\Models\Group');
-    Route::patch('/skupiny/upravit/{group}', [GroupController::class, 'update'])->middleware('can:update,App\Models\Group');
-    Route::delete('/skupiny/vymazat/{group}', [GroupController::class, 'delete'])->name('group.delete')->middleware('can:delete,App\Models\Group');
+    Route::get('/skupiny', [GroupController::class, 'index'])->name('groups')->can('viewAny', App\Models\Group::class);
+    Route::post('/skupiny', [GroupController::class, 'store'])->name('groups.add')->can('create', App\Models\Group::class);
+    Route::get('/skupiny/upravit/{group}', [GroupController::class, 'edit'])->name('group.edit')->can('update', App\Models\Group::class);
+    Route::patch('/skupiny/upravit/{group}', [GroupController::class, 'update'])->can('update', App\Models\Group::class);
+    Route::delete('/skupiny/vymazat/{group}', [GroupController::class, 'delete'])->name('group.delete')->can('delete', App\Models\Group::class);
     
     #SKUPINY - UŽÍVATEĽ
-    Route::get('/skupiny/uzivatel/{user}', [GroupController::class, 'user'])->name('groups.user')->middleware('can:setUser,App\Models\Group');
-    Route::patch('/skupiny/uzivatel/{user}', [GroupController::class, 'userSetGroup'])->name('groups.user.add')->middleware('can:setUser,App\Models\Group');
+    Route::get('/skupiny/uzivatel/{user}', [GroupController::class, 'user'])->name('groups.user')->can('setUser', App\Models\Group::class);
+    Route::patch('/skupiny/uzivatel/{user}', [GroupController::class, 'userSetGroup'])->name('groups.user.add')->can('setUser', App\Models\Group::class);
 
     #POVOLENIA - UŹÍVATEĽ
-    Route::get('/povolenia/uzivatel/{user}', [PermissionController::class, 'user'])->name('permissions.user')->middleware('can:setUser,App\Models\Permission');
-    Route::patch('/povolenia/uzivatel/{user}', [PermissionController::class, 'userSave'])->middleware('can:setUser,App\Models\Permission');
+    Route::get('/povolenia/uzivatel/{user}', [PermissionController::class, 'user'])->name('permissions.user')->can('setUser', App\Models\Permission::class);
+    Route::patch('/povolenia/uzivatel/{user}', [PermissionController::class, 'userSave'])->can('setUser', App\Models\Permission::class);
     #POVOLENIA - SKUPINY
-    Route::get('/povolenia/skupina/{group}', [PermissionController::class, 'group'])->name('permissions.group')->middleware('can:setGroup,App\Models\Permission');
-    Route::patch('/povolenia/skupina/{group}', [PermissionController::class, 'groupSave'])->middleware('can:setGroup,App\Models\Permission');
+    Route::get('/povolenia/skupina/{group}', [PermissionController::class, 'group'])->name('permissions.group')->can('setGroup', App\Models\Permission::class);
+    Route::patch('/povolenia/skupina/{group}', [PermissionController::class, 'groupSave'])->can('setGroup', App\Models\Permission::class);
 
 
     #HRAC
-    Route::get('/hrac/novy/{user?}', [PlayerController::class, 'create'])->name('player.add')->middleware('can:create,App\Models\Player');
-    Route::post('/hrac/novy/{user?}', [PlayerController::class, 'store'])->middleware('can:create,App\Models\Player');
+    Route::get('/hraci', [PlayerController::class, 'adminIndex'])->name('players')->can('adminIndex', App\Models\Player::class);
+    Route::get('/hrac/novy/{user?}', [PlayerController::class, 'create'])->name('player.add')->can('create', App\Models\Player::class);
+    Route::post('/hrac/novy/{user?}', [PlayerController::class, 'store'])->can('create', App\Models\Player::class);
 
 
     #SLIDER
@@ -85,6 +86,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 });
 
 
-Route::get('/hrac/upravit/{player?}', [PlayerController::class, 'edit'])->name('player.edit')->middleware('can:edit,player');
-Route::patch('/hrac/upravit/{player?}', [PlayerController::class, 'update'])->middleware('can:edit,player');
-Route::delete('/hrac/vymazat/{player?}', [PlayerController::class, 'delete'])->middleware('can:delete,player');
+Route::get('/hrac/upravit/{player?}', [PlayerController::class, 'edit'])->name('player.edit')->middleware('can:edit,player')->can('edit', $player);
+Route::patch('/hrac/upravit/{player?}', [PlayerController::class, 'update'])->middleware('can:edit,player')->can('edit', $player);
+Route::delete('/hrac/vymazat/{player?}', [PlayerController::class, 'delete'])->middleware('can:delete,player')->can('delete', $player);
+Route::delete('/hrac/destroy/{player?}', [PlayerController::class, 'destroy'])->can('destroy', App\Models\Player::class);

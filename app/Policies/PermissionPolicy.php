@@ -12,11 +12,8 @@ class PermissionPolicy
 
     /**
      * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): Response|bool
     {
         //
     }
@@ -24,11 +21,8 @@ class PermissionPolicy
 
     /**
      * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function setUser(User $user)
+    public function setUser(User $user): Response|bool
     {
         return $user->hasPermission('user-permissions');
     }
@@ -36,11 +30,8 @@ class PermissionPolicy
 
     /**
      * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function setGroup(User $user)
+    public function setGroup(User $user): Response|bool
     {
         return $user->hasPermission('group-permissions');
 
@@ -49,35 +40,24 @@ class PermissionPolicy
 
     /**
      * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): Response|bool
     {
         //
     }
 
     /**
      * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Permission $permission)
+    public function update(User $user, Permission $permission): Response|bool
     {
         //
     }
 
     /**
      * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Permission $permission)
+    public function delete(User $user, Permission $permission): Response|bool
     {
         //
     }
