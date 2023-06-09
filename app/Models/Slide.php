@@ -14,7 +14,12 @@ class Slide extends Model
 
 
     
-
+    protected static function booted(): void
+    {
+        static::addGlobalScope('active', function (Builder $builder) {
+            $builder->where('active', 1);
+        });
+    }
 
     
 }
