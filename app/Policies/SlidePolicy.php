@@ -13,23 +13,18 @@ class SlidePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasPermission('slides');
+
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Slide $slide): bool
-    {
-        //
-    }
 
     /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermission('slide-add');
+
     }
 
     /**
@@ -37,7 +32,8 @@ class SlidePolicy
      */
     public function update(User $user, Slide $slide): bool
     {
-        //
+        return $user->hasPermission('slide-edit');
+
     }
 
     /**
@@ -45,22 +41,9 @@ class SlidePolicy
      */
     public function delete(User $user, Slide $slide): bool
     {
-        //
+        return $user->hasPermission('slide-delete');
+
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Slide $slide): bool
-    {
-        //
-    }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Slide $slide): bool
-    {
-        //
-    }
 }

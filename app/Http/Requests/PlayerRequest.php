@@ -65,9 +65,9 @@ class PlayerRequest extends FormRequest
 
 
     protected function prepareForValidation(): void
-{
-    $this->merge([
-        'slug' => Str::slug($this->first_name.' '.$this->nickname.' '.$this->last_name),
-    ]);
-}
+    {
+        $this->merge([
+            'slug' => Str::slug($this->first_name.' '.$this->nickname.' '.$this->last_name),
+        ]);
+    }
 }

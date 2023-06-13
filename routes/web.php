@@ -8,7 +8,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlayerController;
-
+use App\Http\Controllers\SlideController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +75,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
 
     #SLIDER
-    Route::get('/slides', [SlideController::class, 'create'])->name('slide.add')->can('create', App\Models\Slide::class);
+    Route::get('/slides', [SlideController::class, 'create'])->name('slides')->can('viewAny', App\Models\Slide::class);
     Route::get('/slide/novy', [SlideController::class, 'create'])->name('slide.add')->can('create', App\Models\Slide::class);
     Route::post('/slide/novy', [SlideController::class, 'store'])->can('create', App\Models\Slide::class);
     Route::get('/slide/upravit/{slide}', [SlideController::class, 'edit'])->name('slide.edit')->can('edit', App\Models\Slide::class);
@@ -87,7 +87,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 });
 
 
-Route::get('/hrac/upravit/{player?}', [PlayerController::class, 'edit'])->name('player.edit')->middleware('can:edit,player')->can('edit', $player);
-Route::patch('/hrac/upravit/{player?}', [PlayerController::class, 'update'])->middleware('can:edit,player')->can('edit', $player);
-Route::delete('/hrac/vymazat/{player?}', [PlayerController::class, 'delete'])->middleware('can:delete,player')->can('delete', $player);
-Route::delete('/hrac/destroy/{player?}', [PlayerController::class, 'destroy'])->can('destroy', App\Models\Player::class);
+Route::get('/hrac/upravit/{player?}', [PlayerController::class, 'edit'])->name('player.edit')->middleware('can:edit,player');
+Route::patch('/hrac/upravit/{player?}', [PlayerController::class, 'update'])->middleware('can:edit,player');
+Route::delete('/hrac/vymazat/{player?}', [PlayerController::class, 'delete'])->middleware('can:delete,player');
+Route::delete('/hrac/destroy/{player?}', [PlayerController::class, 'destroy'])->middleware('can:destroy,player');
