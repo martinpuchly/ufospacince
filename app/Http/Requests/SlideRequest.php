@@ -26,7 +26,7 @@ class SlideRequest extends FormRequest
             'title' => 'required|min:3|max:25',
             'description' => 'nullable|min:3|max:150',
             'link' => 'nullable|url',
-            'image' => 'required|image|mimes:jpeg,jpg,png,gif,svg',
+            'image.name' => 'required|image|mimes:jpeg,jpg,png,gif,svg',
             'position' => 'required|integer|min:0|max:200',
             'active' => 'required|boolean',
         ];
