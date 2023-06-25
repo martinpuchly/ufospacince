@@ -65,29 +65,27 @@
 
 
 <script setup>
-
     import AppLayout from '@/Layouts/AppLayout.vue';
     import { useForm } from '@inertiajs/vue3';
-
+    import { router } from '@inertiajs/vue3'
 
     const props = defineProps({
         errors: Object
     })
 
-    const form = useForm({
+    const form = {
             title: null,
             description: null,
             link: null,
             number: null,
             image: null,
             position: null
-
-        })
-
-
+        }
 
     const submit = () => {
-        form.post(route('admin.slide.add'))
+        router.post(route('admin.slide.add'), form, {
+            forceFormData: true,
+        })
     }
 
 

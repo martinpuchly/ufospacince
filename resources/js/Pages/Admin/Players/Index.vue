@@ -22,10 +22,10 @@
 
                         </td>
                         <td>
-                            <Link :href="route('admin.groups.user', user.id)" title="pridať do skupín" class="btn btn-sm btn-info inline-block">
+                            <Link :href="route('admin.groups.user', user.id)" title="pridať do skupín" class="badge text-bg-info inline-block">
                                 SKUPINY
                             </Link>
-                            <Link :href="route('admin.permissions.user', user.id)" title="pridať povolenia" class="ml-3" class="btn btn-sm btn-info inline-block">
+                            <Link :href="route('admin.permissions.user', user.id)" title="pridať povolenia" class="ml-3" class="badge text-bg-info inline-block">
                                 POVOLENIA
                             </Link>
                         </td>

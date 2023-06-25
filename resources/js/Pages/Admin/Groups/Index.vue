@@ -25,17 +25,15 @@
                             <td>{{ group.name }}</td>
                             <td>{{ group.description }}</td>
                             <td>
-
-                            <div class="row gx-5">
-                                <Link :href="route('admin.permissions.group', group.id)" title="povolenia skupiny" class="btn btn-sm btn-info col-3 mx-2">
-                                    povolenia
-                                </Link>
-                                <Link class="ml-4 btn btn-sm btn-secondary col-md-3 mx-2" :href="route('admin.group.edit', group.id)" title="upraviť skupinu" >
-                                    upraviť
-                                </Link>
-                                <button class="btn btn-sm btn-danger col-md-3 mx-2" @click="destroy(group.id)" method="delete">vymazať</button>
-                            </div>
-
+                                <div class="row gx-5">
+                                    <Link :href="route('admin.permissions.group', group.id)" title="povolenia skupiny" class="col-md-3 badge text-bg-info">
+                                        povolenia
+                                    </Link>
+                                    <Link :href="route('admin.group.edit', group.id)" title="upraviť skupinu" class="col-md-3 badge text-bg-secondary">
+                                        upraviť
+                                    </Link>
+                                    <Link :href="destroy(group.id)" method="delete" class="col-md-3 badge text-bg-danger">vymazať</Link>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
