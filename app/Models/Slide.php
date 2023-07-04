@@ -11,7 +11,7 @@ class Slide extends Model
     use HasFactory;
 
 
-    protected $fillable = ['title', 'description', 'link', 'image', 'position', 'active'];
+    protected $fillable = ['title', 'description', 'link', 'picture', 'position', 'active'];
 
 
     

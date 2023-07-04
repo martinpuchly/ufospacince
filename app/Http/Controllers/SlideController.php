@@ -7,8 +7,8 @@ use Inertia\Response as InertiaResponse;
 use App\Models\Slide;
 use App\Http\Requests\SlideRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Log;
 
+use Illuminate\Support\Str;
 
 class SlideController extends Controller
 {
@@ -16,7 +16,7 @@ class SlideController extends Controller
     public function index(): InertiaResponse
     {
         return Inertia::render('Admin/Slides/Index', [
-            'slides'=>Slide::orderBy('position', 'DESC')->get()
+            'slides'=>Slide::orderBy('position', 'ASC')->get()
         ]);
     }
 
@@ -30,13 +30,20 @@ class SlideController extends Controller
 
     public function store(SlideRequest $request): RedirectResponse
     {
+        $data = $request->only(['title', 'description', 'link', 'active']);
 
-        $slide = Slide::create($request->only(['title', 'description', 'link', 'position', 'active']));
-        if ($request->image) {
-            $data['image'] = $request->file('image')->store('slides');
-            $slide->update($data);
+        if ($request->file('picture')) {
+            $filename = Str::random(15).'.'.$request->file('picture')->getClientOriginalExtension();
+
+            $img = Image::make($request->file('picture'));
+            $img->save('public/uploads/slides/'.$filename);
+            $data["picture"] = $filename;
         }
-        
+
+        Slide::increment('positions');
+        $data["position"] = 1;
+
+        $slide = Slide::create($data);
         return redirect()->route('admin.slide.edit', ['slide'=>$slide->id])->with('succeed', 'Slide bol vytvorený.');
     }
 
@@ -50,7 +57,8 @@ class SlideController extends Controller
 
     public function update(SlideRequest $request, Slide $slide): RedirectResponse
     {
-        $data = $request->only(['title', 'description', 'link', 'image', 'position', 'active']);
+        $data = $request->only(['title', 'description', 'link', 'position', 'active']);
+
         if ($request->image && $request->image->isValid()) {
             $image_path = $request->image->store('images/slides/');
             $data = array_merge($data, ['image'=>$image_path]);
