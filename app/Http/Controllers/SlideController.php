@@ -40,7 +40,7 @@ class SlideController extends Controller
             $data["picture"] = $filename;
         }
 
-        Slide::increment('positions');
+        Slide::increment('position');
         $data["position"] = 1;
 
         $slide = Slide::create($data);
