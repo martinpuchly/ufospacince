@@ -27,7 +27,7 @@ class PlayerRequest extends FormRequest
             'last_name' => 'required|min:3|max:50',
             'nickname' => 'nullable|min:3|max:50',
             'shirt_number' => 'nullable|integer|min:0|max:99',
-            'photo' => 'nullable|image',
+            'photo' => 'nullable|image|max:2048',
             'about' => 'nullable|min:10|max:5000',
             'show_first_name' => 'nullable|boolean',
             'show_last_name' => 'nullable|boolean',

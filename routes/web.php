@@ -89,5 +89,5 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
 Route::get('/hrac/upravit/{player?}', [PlayerController::class, 'edit'])->name('player.edit')->middleware('can:edit,player');
 Route::patch('/hrac/upravit/{player?}', [PlayerController::class, 'update'])->middleware('can:edit,player');
-Route::delete('/hrac/vymazat/{player?}', [PlayerController::class, 'delete'])->middleware('can:delete,player');
-Route::delete('/hrac/destroy/{player?}', [PlayerController::class, 'destroy'])->middleware('can:destroy,player');
+Route::delete('/hrac/vymazat/{player?}', [PlayerController::class, 'delete'])->name('player.delete')->middleware('can:delete,player');
+Route::delete('/hrac/destroy/{player?}', [PlayerController::class, 'destroy'])->name('player.destroy')->middleware('can:destroy,player');

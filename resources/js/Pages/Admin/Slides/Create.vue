@@ -41,7 +41,7 @@
 
             <div class="mb-3">
                     <label for="image" class="form-label">Obrázok</label>
-                    <input type="file" @input="form.image = $event.target.files[0]" class="form-control"/>
+                    <input type="file" @input="form.image = $event.target.files[0]" class="form-control" accept="image/png, image/jpeg">/>
                     <div v-if="errors.image" class="text-danger">
                             {{ errors.image }}
                     </div>
@@ -87,7 +87,7 @@
 
 
     const submit = () => {
-        form.post(route('admin.slide.add'))
+        form.post(route('admin.slide.add'));
     }
 
 

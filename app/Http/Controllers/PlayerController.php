@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Http\Requests\PlayerRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class PlayerController extends Controller
 {
@@ -19,7 +21,7 @@ class PlayerController extends Controller
     public function adminIndex()
     {
         return Inertia::render('Admin/Players/Index', [
-            'players'=> Player::orderBy('last_name')->paginate(20)
+            'players'=> Player::with('user')->orderBy('last_name')->paginate(20)
         ]);
     }
 
@@ -73,7 +75,7 @@ class PlayerController extends Controller
     {
 
         $player = !$player ? Auth::user()->player : $player;    //ak nie je definovaný hráč, pôjde sa editovať profil hráča prihláseného užívateľa
-        return Inertia::render('Player/Edit', [
+        return Inertia::render('Players/Edit', [
             'player'=>$player,
             'show_options'=>Player::SHOW_OPTIONS,
             'user_name' => $player->user ? $player->user->name : '-- nepripojený --'
@@ -84,15 +86,34 @@ class PlayerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PlayerRequest $request, Player $player=null)
+    public function update(Request $request, Player $player=null)
     {
         $player = !$player ? Auth::user()->player : $player;    //ak nie je definovaný hráč, pôjde sa editovať profil hráča prihláseného užívateľa
-        $player->fill($request->only([
-            'nickname', 'birth_date', 'shirt_number', 'photo', 'about', 
+        $data = $request->only([
+            'nickname', 'birth_date', 'shirt_number', 'about', 
             'show_first_name', 'show_last_name', 'show_nickname', 'show_birth_date', 
             'show_shirt_number', 'show_photo', 'show_about', 'show_user', 'user_id', 'show_player', 'slug'
-        ]));
-        if($player->first_name)
+        ]);
+
+        if ($request->file('photo')) {
+            $image = $request->file('photo');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+    
+            $img = Image::make($image->getRealPath());
+            $img->resize(800, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+    
+            $img->stream(); // Převede obrázek na stream
+    
+            // Uloží stream jako soubor ve veřejném úložišti (public storage)
+            Storage::disk('public')->put($filename, $img, 'public/players');
+            
+            $data = array_merge($data, ['photo'=>$filename]);
+
+        }
+        $player->update($data);
+
         return redirect()->route('player.edit', ['player'=>$player->id])->with('succeed', 'Hráč bol upravený.');
     }
 

@@ -3,39 +3,48 @@
         <h1>Upraviť profil hráča</h1>
         <h3>{{ user_name }}</h3>
         <form @submit.prevent="submit" >
-            <div class="row">
+            <div class="row mb-5">
                 <div class="col-md-6">
                     <label for="first_name" class="form-label">Meno</label>
-                    <input type="text" class="form-control" id="first_name" placeholder="Meno" disabled>
+                    <input type="text" class="form-control" id="first_name" placeholder="Meno" v-model="form.first_name">
                 </div>
                 <div class="col-md-6">
                     <label for="last_name" class="form-label">Priezvisko</label>
-                    <input type="text" class="form-control" id="last_name" placeholder="Priezvisko" disabled>
+                    <input type="text" class="form-control" id="last_name" placeholder="Priezvisko" v-model="form.last_name">
                 </div>
             </div>
             
 
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-md-4">
-                    <label for="photo" class="form-label">Fotka</label>
-                    <img :src="player.photo" alt="fotka {{ player.fullName }}"/>
-                    <input class="form-control" type="file" id="photo" v-model="form.photo">
+                    <label for="photo" class="form-label block">Fotka</label>
+                    <img :src="player.photo ?? '/images/siluette.png'" :alt="'fotka '+player.name" class="image-fluid rounded" style="max-width: 80%; display: block; "/>
+                    <input class="form-control" type="file" id="photo" @input="form.photo = $event.target.files[0]">
                     <div v-if="errors.photo" class="text-danger">
                             {{ errors.photo }}
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="nickname" class="form-label">Prezývka</label>
-                    <input type="text" class="form-control" id="lastnickname_name" placeholder="prezývka" v-model="form.nickname">
-                    <div v-if="errors.nickname" class="text-danger">
-                            {{ errors.nickname }}
+                    <div class="form-group  mb-4">
+                        <label for="nickname" class="form-label">Prezývka</label>
+                        <input type="text" class="form-control" id="nickname" placeholder="prezývka" v-model="form.nickname">
+                        <div v-if="errors.nickname" class="text-danger">
+                                {{ errors.nickname }}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="shirt_number" class="form-label">Číslo dresu</label>
-                    <input type="text" class="form-control" id="shirt_number" placeholder="xx" v-model="form.shirt_number">
-                    <div v-if="errors.shirt_number" class="text-danger">
-                            {{ errors.shirt_number }}
+                    <div class="form-group  mb-4">
+                        <label for="birth_date" class="form-label">Dátum narodenia</label>
+                        <input type="date" class="form-control" id="birth_date" placeholder="prezývka" v-model="form.birth_date">
+                        <div v-if="errors.birth_date" class="text-danger">
+                                {{ errors.birth_date }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="shirt_number" class="form-label">Číslo dresu</label>
+                        <input type="text" class="form-control" id="shirt_number" placeholder="xx" v-model="form.shirt_number">
+                        <div v-if="errors.shirt_number" class="text-danger">
+                                {{ errors.shirt_number }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,12 +58,13 @@
                 </div>
             </div>
 
-            <h3>Nastavenie súkromia: </h3>
-            <div class="mb-3 row">
-                <label for="show_first_name" class="col-sm-2 col-form-label">Zobraziť meno: </label>
-                <div class="col-sm-10">
+            <h3 class="mt-5">Nastavenie súkromia: </h3>
+            <div class="col-6">
+            <div class="mb-3 row border-bottom border-secondary">
+                <label for="show_first_name" class="col-sm-6 col-form-label">Zobraziť meno: </label>
+                <div class="col-sm-6">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_first_name" v-model="form.show_first_name">
-                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                        <option v-for="title, index in show_options" v-key="index" :value="index">{{ title }}</option>
                     </select>    
                     <div v-if="errors.show_first_name" class="text-danger">
                         {{ errors.show_first_name }}
@@ -62,11 +72,11 @@
                 </div>
             </div>
 
-            <div class="mb-3 row">
-                <label for="show_last_name" class="col-sm-2 col-form-label">Zobraziť priezvisko: </label>
-                <div class="col-sm-10">
+            <div class="mb-3 row border-bottom border-secondary">
+                <label for="show_last_name" class="col-sm-6 col-form-label">Zobraziť priezvisko: </label>
+                <div class="col-sm-6">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_last_name" v-model="form.show_last_name">
-                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                        <option v-for="title, index in show_options" v-key="index" :value="index">{{ title }}</option>
                     </select>
                     <div v-if="errors.show_last_name" class="text-danger">
                         {{ errors.show_last_name }}
@@ -74,11 +84,11 @@
                 </div>
             </div>
 
-            <div class="mb-3 row">
-                <label for="show_nickname" class="col-sm-2 col-form-label">Zobraziť prezývku: </label>
-                <div class="col-sm-10">
+            <div class="mb-3 row border-bottom border-secondary">
+                <label for="show_nickname" class="col-sm-6 col-form-label">Zobraziť prezývku: </label>
+                <div class="col-sm-6">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_nickname" v-model="form.show_nickname">
-                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                        <option v-for="title, index in show_options" v-key="index" :value="index">{{ title }}</option>
                     </select>
                     <div v-if="errors.show_nickname" class="text-danger">
                         {{ errors.show_nickname }}
@@ -86,11 +96,11 @@
                 </div>
             </div>
 
-            <div class="mb-3 row">
-                <label for="show_birth_date" class="col-sm-2 col-form-label">Zobraziť dátum narodenia/vek: </label>
-                <div class="col-sm-10">
+            <div class="mb-3 row border-bottom border-secondary">
+                <label for="show_birth_date" class="col-sm-6 col-form-label">Zobraziť dátum narodenia/vek: </label>
+                <div class="col-sm-6">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_birth_date" v-model="form.show_birth_date">
-                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                        <option v-for="title, index in show_options" v-key="index" :value="index">{{ title }}</option>
                     </select>
                     <div v-if="errors.show_birth_date" class="text-danger">
                         {{ errors.show_birth_date }}
@@ -98,11 +108,11 @@
                 </div>
             </div>
 
-            <div class="mb-3 row">
-                <label for="show_shirt_number" class="col-sm-2 col-form-label">Zobraziť číslo dresu: </label>
-                <div class="col-sm-10">
+            <div class="mb-3 row border-bottom border-secondary">
+                <label for="show_shirt_number" class="col-sm-6 col-form-label">Zobraziť číslo dresu: </label>
+                <div class="col-sm-6">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_shirt_number" v-model="form.show_shirt_number">
-                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                        <option v-for="title, index in show_options" v-key="index" :value="index">{{ title }}</option>
                     </select>
                     <div v-if="errors.show_shirt_number" class="text-danger">
                         {{ errors.show_shirt_number }}
@@ -110,11 +120,11 @@
                 </div>
             </div>
 
-            <div class="mb-3 row">
-                <label for="show_photo" class="col-sm-2 col-form-label">Zobraziť fotku: </label>
-                <div class="col-sm-10">
+            <div class="mb-3 row border-bottom border-secondary">
+                <label for="show_photo" class="col-sm-6 col-form-label">Zobraziť fotku: </label>
+                <div class="col-sm-6">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_photo" v-model="form.show_photo">
-                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                        <option v-for="title, index in show_options" v-key="index" :value="index">{{ title }}</option>
                     </select>
                     <div v-if="errors.show_photo" class="text-danger">
                         {{ errors.show_photo }}
@@ -123,11 +133,11 @@
             </div>
 
             
-            <div class="mb-3 row">
-                <label for="show_about" class="col-sm-2 col-form-label">Zobraziť fotku: </label>
-                <div class="col-sm-10">
+            <div class="mb-3 row border-bottom border-secondary">
+                <label for="show_about" class="col-sm-6 col-form-label">Zobraziť fotku: </label>
+                <div class="col-sm-6">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_about" v-model="form.show_about">
-                        <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
+                        <option v-for="title, index in show_options" v-key="index" :value="index">{{ title }}</option>
                     </select>
                     <div v-if="errors.show_about" class="text-danger">
                         {{ errors.show_about }}
@@ -137,9 +147,9 @@
 
 
             
-            <div class="mb-3 row" v-if="player.user_id != undefined">
-                <label for="show_user" class="col-sm-2 col-form-label">Zobraziť pridružený užívateľský profil: </label>
-                <div class="col-sm-10">
+            <div class="mb-3 row border-bottom border-secondary" v-if="player.user_id != undefined">
+                <label for="show_user" class="col-sm-6 col-form-label">Zobraziť pridružený užívateľský profil: </label>
+                <div class="col-sm-6">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_user" v-model="form.show_user">
                         <option v-for="title, index in show_options" v-key="form" :value="index">{{ title }}</option>
                     </select>
@@ -148,12 +158,15 @@
                     </div>    
                 </div>
             </div>
+        </div>
 
-
-
-            <button type="submit" class="btn btn-primary">Uložiť</button>
-
-        </form>
+        <div class="float-end d-flex  align-items-center">
+            <button type="submit" class="btn btn-primary mx-2">Uložiť</button>
+            <Link class="btn btn-sm btn-danger mx-2" @click.prevent="del()" title="vymazať hráča" method="delete">
+                Vymazať
+            </Link> 
+        </div>
+    </form>
         
     </AppLayout>
 </template>
@@ -163,7 +176,7 @@
 
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue'
-    import { useForm } from '@inertiajs/inertia-vue3'
+    import { useForm, router } from '@inertiajs/vue3'
 
 
     const props = defineProps({
@@ -177,6 +190,8 @@
 
     const form = useForm({
             id: props.player.id,
+            first_name: props.player.first_name,
+            last_name: props.player.last_name,
             nickname: props.player.nickname,
             birth_date: props.player.birth_date,
             shirt_number: props.player.shirt_number,
@@ -196,12 +211,20 @@
         })
 
 
+        const submit = () => {
 
-    const submit = () => {
-        form.patch(route('admin.group.edit', props.group.id))
+            form.patch(route('player.edit', props.player.id), {
+                        forceFormData: true,
+                        });
+    
     }
 
+    function del() {
+        if(confirm('Skutočne chcete hráča vymazať?')){
+            router.delete(route('player.delete', props.player.id))
 
+        }
+    }
 
 
 </script>

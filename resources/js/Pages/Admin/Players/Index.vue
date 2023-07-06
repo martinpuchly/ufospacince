@@ -1,32 +1,24 @@
 
 <template>
     <AppLayout>
-        <div v-if="players.data.length>0">
+        <div v-if="players.data.length">
             <table class="table table-striped">
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
                         <th>Meno</th>
                         <th>Užívateľ</th>
-                        <th></th>
+                        <th>možnosti</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="player in players.data" :key="player.id">
                         <td>{{ player.id }}</td>
-                        <td>{{ player.full_name }} 
-
-                        </td>
+                        <td>{{ player.name }}</td>
+                        <td>{{ player.user ? player.user.name : '' }}</td>
                         <td>
-                            <span>{{ player.user.email }}</span>
-
-                        </td>
-                        <td>
-                            <Link :href="route('admin.groups.user', user.id)" title="pridať do skupín" class="btn btn-sm btn-info inline-block">
-                                SKUPINY
-                            </Link>
-                            <Link :href="route('admin.permissions.user', user.id)" title="pridať povolenia" class="ml-3" class="btn btn-sm btn-info inline-block">
-                                POVOLENIA
+                            <Link class="ml-4 btn btn-sm btn-secondary col-md-3 mx-2" :href="route('player.edit', player.id)" title="upraviť hráča" >
+                                upraviť
                             </Link>
                         </td>
                     </tr>
@@ -49,10 +41,10 @@
 <script setup>
     import Pagination from '@/Components/Pagination.vue'
     import AppLayout from '@/Layouts/AppLayout.vue'
+    import { Link } from '@inertiajs/vue3';
 
-
-    const props = defineProps([
-        players: Object
-    ])
+    const props = defineProps({
+        players: Object,
+    })
 
 </script>

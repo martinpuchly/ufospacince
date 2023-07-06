@@ -1,5 +1,5 @@
 <template>
-    <div class="container pb-5 rounded-bottom"> 
+    <div class="container container-main pb-5 rounded-bottom"> 
         <header>
             <div class="row">
                 <div class="col-sm-2">
@@ -18,13 +18,16 @@
                 <slot/>
             </section>
         </main>
-
     </div>
+    <footer class="my-3 pb-5 container text-center text-white">U.F.O. Špačince, &copy;{{ new Date().getFullYear() }}
+</footer>
 </template>
 
 
 <script setup>
     import Nav from '@/Shared/Nav.vue'
     import Messages from '@/Shared/Messages.vue'
+
+
 
 </script>
