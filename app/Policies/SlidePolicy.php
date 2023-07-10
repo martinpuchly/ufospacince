@@ -30,7 +30,7 @@ class SlidePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Slide $slide): bool
+    public function update(User $user): bool
     {
         return $user->hasPermission('slide-edit');
 
@@ -39,7 +39,7 @@ class SlidePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Slide $slide): bool
+    public function delete(User $user): bool
     {
         return $user->hasPermission('slide-delete');
 

@@ -56,10 +56,10 @@
                     {{ errors.active }}
                 </div>
             </div>
-            <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+            <progress v-if="form.progress" :value="form.progress.percentage" max="100" class="d-block">
                 {{ form.progress.percentage }}%
-              </progress>          
-            <button type="submit" class="btn btn-primary">Pridať slide</button>        
+            </progress>          
+            <button type="submit" class="btn btn-primary" :disabled="form.processing">Pridať slide</button>        
         </form>
 </AppLayout>
 
@@ -86,7 +86,10 @@
     })
 
     function submit() {
-        form.post(route('admin.slide.add'))
+        form.post(route('admin.slide.add'), {
+            preserveScroll: true,
+            onSuccess: () => form.reset(),
+        })
     }
 
 

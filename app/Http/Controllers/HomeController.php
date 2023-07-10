@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index(): InertiaResponse
     {
         return Inertia::render('Home/Index', [
-            'slides'=> Slide::active()->get();
+            'slides'=> Slide::active()->orderBy('position', 'ASC')->get()
         ]);
     }
 

@@ -1,17 +1,17 @@
 <script setup>
-    import AdminLayout from "@/Layouts/AdminLayout.vue";
+    import AppLayout from "@/Layouts/AppLayout.vue";
 
     defineProps({
         permissions: Array    
         })
 </script>
 <template>
-    <AdminLayout>
+    <AppLayout>
 
            {{ permissions }}
 
         
-    </AdminLayout>
+    </AppLayout>
 </template>
 
 

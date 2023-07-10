@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -45,6 +46,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected $appends = ['has_admin_link'];
+
+
 
     public function groups(): BelongsToMany{
         return $this->belongsToMany(Group::class);
@@ -77,10 +81,12 @@ class User extends Authenticatable
         return in_array($permission_key, $this->allPermissions());
     } 
 
-    public function getHasAdminLinkAttribute(): bool
+
+    protected function hasAdminLink(): Attribute
     {
-        if (count($this->allPermissions()) > 0 || $this->id === 1) return true;
-        return false;
+        return new Attribute(
+            get: fn () => (count($this->allPermissions()) > 0 || $this->id === 1) ? true : false,
+        );
     }
 
 }

@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 use App\Models\Slide;
-use App\Http\Requests\SlideRequest;
+use App\Http\Requests\SlideCreateRequest;
+use App\Http\Requests\SlideUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
-
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class SlideController extends Controller
 {
@@ -29,15 +30,18 @@ class SlideController extends Controller
         ]);
     }
 
-    public function store(SlideRequest $request): RedirectResponse
+    public function store(SlideCreateRequest $request): RedirectResponse
     {
-
-        $slide = Slide::create($request->only(['title', 'description', 'link', 'position', 'active']));
-        if ($request->image) {
-            $data['image'] = $request->file('image')->store('slides');
-            $slide->update($data);
+        $data = $request->only(['title', 'description', 'link', 'position', 'active']);
+        if ($request->hasFile('picture') && $request->file('picture')->isValid()) {
+            $fileName = time() . '.' . $request->picture->extension();
+            $request->picture->storeAs('public/slides', $fileName);
+            
+            $data = array_merge($data, ['picture'=>$fileName]);
         }
-        
+        DB::table('slides')->increment('position');
+        $data['position'] = 1;
+        $slide = Slide::create($data);
         return redirect()->route('admin.slide.edit', ['slide'=>$slide->id])->with('succeed', 'Slide bol vytvorený.');
     }
 
@@ -49,23 +53,50 @@ class SlideController extends Controller
     }
 
 
-    public function update(SlideRequest $request, Slide $slide): RedirectResponse
+    public function update(SlideUpdateRequest $request, Slide $slide): RedirectResponse
     {
-        $data = $request->only(['title', 'description', 'link', 'position', 'active']);
-
-        if ($request->image && $request->image->isValid()) {
-            $image_path = $request->image->store('images/slides/');
-            $data = array_merge($data, ['image'=>$image_path]);
+        $data = $request->only(['title', 'description', 'link', 'active']);
+        if ($request->hasFile('picture') && $request->file('picture')->isValid()) {
+            $fileName = time() . '.' . $request->picture->extension();
+            $request->picture->storeAs('public/slides', $fileName);
+            
+            $data = array_merge($data, ['picture'=>$fileName]);
         }
         $slide->update($data);
-        return redirect()->route('admin.slide.edit', ['slide'=>$slide->id])->with('succeed', 'Slide bol vytvorený.');
+        return redirect()->route('admin.slide.edit', ['slide'=>$slide->id])->with('succeed', 'Slide bol upravený.');
     }
 
 
     public function delete(Slide $slide): RedirectResponse
     {
+        Storage::delete('slides/'.$slide->picture);
+
         $slide->delete();
         return redirect()->route('admin.slides')->with('succeed', 'Slide bol vymazaný.');
+    }
+
+
+
+    public function setActive(Slide $slide): RedirectResponse{
+        $slide->active = $slide->active == 1 ? 0 : 1;
+        $slide->save();
+
+        $msg = $slide->active == 1 ? 'aktivovaný' : 'deaktivovaný';
+        return redirect()->route('admin.slides')->with('succeed', 'Slidu bol '.$msg.'.');
+    }
+
+    public function setUpPosition(Slide $slide): RedirectResponse{
+        Slide::where('position', $slide->position-1)->increment('position');
+        $slide->decrement('position');
+        return redirect()->route('admin.slides')->with('succeed', 'Pozícia slidu bola upravená.');
+
+    }
+
+    public function setDownPosition(Slide $slide): RedirectResponse{
+        Slide::where('position', $slide->position+1)->decrement('position');
+        $slide->increment('position');
+        return redirect()->route('admin.slides')->with('succeed', 'Pozícia slidu bola upravená.');
+
     }
 
 }

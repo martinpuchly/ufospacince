@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Slide;
 
-class SlideRequest extends FormRequest
+class SlideUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,15 +26,14 @@ class SlideRequest extends FormRequest
             'title' => 'required|min:3|max:25',
             'description' => 'nullable|min:3|max:150',
             'link' => 'nullable|url',
-            'picture' => 'required|image|mimes:jpeg,jpg,png,gif,svg',
-            'position' => 'required|integer|min:0|max:200',
+            'picture' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg',
             'active' => 'required|boolean',
         ];
     }
 
 
 
-    public function messages():array
+    public function messages(): array
     {
         return   [
             'title.required' => 'Titulok slidu je povinný.',
@@ -43,7 +42,6 @@ class SlideRequest extends FormRequest
             'description.min' => 'Podtitulok slidu musí obsahovať :min znakov.',
             'description.max' => 'Podtitulok slidu môže obsahovať :max znakov.',
             'link.url' => 'Neplatný formát URL adresy.',
-            'picture.required' => 'Obrázok slidu je povinný.',
             'picture.image' => 'Neplatný formát obrázku slidu.',
             'picture.mimes' => 'Neplatný formát obrázku slidu. Povolené sú formáty: jpeg, jpg, png, gif, svg.',
             'active.boolean' => 'Chyba.',

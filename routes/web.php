@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
@@ -21,18 +22,7 @@ use App\Http\Controllers\SlideController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [HomeController::class, 'index'])->name('/');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -75,13 +65,16 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
 
     #SLIDER
-    Route::get('/slides', [SlideController::class, 'create'])->name('slides')->can('viewAny', App\Models\Slide::class);
+    Route::get('/slides', [SlideController::class, 'index'])->name('slides')->can('viewAny', App\Models\Slide::class);
     Route::get('/slide/novy', [SlideController::class, 'create'])->name('slide.add')->can('create', App\Models\Slide::class);
     Route::post('/slide/novy', [SlideController::class, 'store'])->can('create', App\Models\Slide::class);
-    Route::get('/slide/upravit/{slide}', [SlideController::class, 'edit'])->name('slide.edit')->can('edit', App\Models\Slide::class);
-    Route::patch('/slide/upravit/{slide}', [SlideController::class, 'update'])->can('edit', App\Models\Slide::class);
+    Route::get('/slide/upravit/{slide}', [SlideController::class, 'edit'])->name('slide.edit')->can('update', App\Models\Slide::class);
+    Route::patch('/slide/upravit/{slide}', [SlideController::class, 'update'])->can('update', App\Models\Slide::class);
     Route::delete('/slide/vymazat/{slide}', [SlideController::class, 'delete'])->name('slide.delete')->can('delete', App\Models\Slide::class);
 
+    Route::get('/slide/{slide}/setActive', [SlideController::class, 'setActive'])->name('slide.setActive')->can('update', App\Models\Slide::class);
+    Route::get('/slide/{slide}/setDownPosition', [SlideController::class, 'setDownPosition'])->name('slide.setDownPosition')->can('update', App\Models\Slide::class);
+    Route::get('/slide/{slide}/setUpPosition', [SlideController::class, 'setUpPosition'])->name('slide.setUpPosition')->can('update', App\Models\Slide::class);
 
 
 });

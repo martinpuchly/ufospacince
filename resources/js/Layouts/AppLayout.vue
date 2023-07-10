@@ -25,7 +25,7 @@
 
 
 <script setup>
-    import Nav from '@/Shared/Nav.vue'
+    import Nav from '@/Layouts/Nav.vue'
     import Messages from '@/Shared/Messages.vue'
 
 
