@@ -1,4 +1,9 @@
 <template>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a :href="route('admin')">Admin</a></li>
+        </ol>
+    </nav>
     <h1>Slides</h1>
     <table class="table">
         <thead class="table-dark">
@@ -15,10 +20,10 @@
                 <td>{{ slide.title }} <span v-if="slide.link">(<a :href="slide.link" target="_blank">link</a>)</span></td>
                 <td>{{ slide.description }}</td>
                 <td>
-                    <Link :href="route('admin.slide.edit', slide.id)" title="upraviť" class="btn btn-sm btn-info col-3 mx-2">
-                        uraviť
+                    <Link :href="route('admin.slide.edit', slide.id)" title="upraviť" class="badge text-bg-info col-3 mx-2">
+                        upraviť
                     </Link>
-                    <Link :href="route('admin.slide.delete', slide.id)" title="vymazať" class="btn btn-sm btn-danger col-3 mx-2">
+                    <Link :href="route('admin.slide.delete', slide.id)" title="vymazať" method="delete" class="badge text-bg-danger col-3 mx-2">
                         vymazať
                     </Link>
                 </td>

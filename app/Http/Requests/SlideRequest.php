@@ -26,7 +26,7 @@ class SlideRequest extends FormRequest
             'title' => 'required|min:3|max:25',
             'description' => 'nullable|min:3|max:150',
             'link' => 'nullable|url',
-            //'image' => 'required|mimes:jpeg,jpg,png,gif,svg',
+            'picture' => 'required|image|mimes:jpeg,jpg,png,gif,svg',
             'position' => 'required|integer|min:0|max:200',
             'active' => 'required|boolean',
         ];
@@ -41,14 +41,11 @@ class SlideRequest extends FormRequest
             'title.min' => 'Titulok slidu musí obsahovať :min znakov.',
             'title.max' => 'Titulok slidu môže obsahovať :max znakov.',
             'description.min' => 'Podtitulok slidu musí obsahovať :min znakov.',
-            'description.max' => 'PPodtitulok slidu môže obsahovať :max znakov.',
+            'description.max' => 'Podtitulok slidu môže obsahovať :max znakov.',
             'link.url' => 'Neplatný formát URL adresy.',
-            'image.required' => 'Obrázok slidu je povinný.',
-            'image.image' => 'Neplatný formát obrázku slidu.',
-            'position.required' => 'Pozícia je povinný údaj.',
-            'position.integer' => 'Pozícia musí byť celé číslo od :min do :max znakov.',
-            'position.min' => 'Pozícia musí byť celé číslo od :min do :max znakov.',
-            'position.max' => 'Pozícia musí byť celé číslo od :min do :max znakov.',
+            'picture.required' => 'Obrázok slidu je povinný.',
+            'picture.image' => 'Neplatný formát obrázku slidu.',
+            'picture.mimes' => 'Neplatný formát obrázku slidu. Povolené sú formáty: jpeg, jpg, png, gif, svg.',
             'active.boolean' => 'Chyba.',
         ];
     }
@@ -59,7 +56,6 @@ class SlideRequest extends FormRequest
     {
         $this->merge([
             'active' => $this->active ? 1 : 0,
-            'position' => $this->position ? $this->position : Slide::max('position')+1,
         ]);
     }
 }

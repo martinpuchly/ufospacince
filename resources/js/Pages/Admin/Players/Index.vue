@@ -17,8 +17,15 @@
                         <td>{{ player.name }}</td>
                         <td>{{ player.user ? player.user.name : '' }}</td>
                         <td>
-                            <Link class="ml-4 btn btn-sm btn-secondary col-md-3 mx-2" :href="route('player.edit', player.id)" title="upraviť hráča" >
-                                upraviť
+                            <span>{{ player.user.email }}</span>
+
+                        </td>
+                        <td>
+                            <Link :href="route('admin.groups.user', user.id)" title="pridať do skupín" class="badge text-bg-info inline-block">
+                                SKUPINY
+                            </Link>
+                            <Link :href="route('admin.permissions.user', user.id)" title="pridať povolenia" class="ml-3" class="badge text-bg-info inline-block">
+                                POVOLENIA
                             </Link>
                         </td>
                     </tr>

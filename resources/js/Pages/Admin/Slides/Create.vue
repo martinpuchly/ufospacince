@@ -40,22 +40,25 @@
             </div>
 
             <div class="mb-3">
-                    <label for="image" class="form-label">Obrázok</label>
-                    <input type="file" @input="form.image = $event.target.files[0]" class="form-control" accept="image/png, image/jpeg">/>
-                    <div v-if="errors.image" class="text-danger">
-                            {{ errors.image }}
+                    <label for="picture" class="form-label">Obrázok</label>
+                    <input type="file" name="picture" @input="form.picture = $event.target.files[0]" class="form-control"/>
+                    <div v-if="errors.picture" class="text-danger">
+                        {{ errors.picture }}
                     </div>
                 </div>               
 
             <div class="mb-3">
                 <input class="form-check-input" type="checkbox" v-model="form.active" id="active" checked>
                 <label class="form-check-label" for="active">
-                        Aktívny?
+                    Aktívny?
                 </label>
                 <div v-if="errors.active" class="text-danger">
-                        {{ errors.active }}
+                    {{ errors.active }}
                 </div>
-            </div>               
+            </div>
+            <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                {{ form.progress.percentage }}%
+              </progress>          
             <button type="submit" class="btn btn-primary">Pridať slide</button>        
         </form>
 </AppLayout>
@@ -65,30 +68,27 @@
 
 
 <script setup>
-
     import AppLayout from '@/Layouts/AppLayout.vue';
     import { useForm } from '@inertiajs/vue3';
-
+    import { router } from '@inertiajs/vue3'
 
     const props = defineProps({
         errors: Object
     })
 
     const form = useForm({
-            title: null,
-            description: null,
-            link: null,
-            number: null,
-            image: null,
-            position: null
+        title: null,
+        description: null,
+        link: null,
+        number: null,
+        picture: null,
+        position: null
+    })
 
-        })
-
-
-
-    const submit = () => {
-        form.post(route('admin.slide.add'));
+    function submit() {
+        form.post(route('admin.slide.add'))
     }
+
 
 
 </script>
