@@ -46,7 +46,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected $appends = ['has_admin_link'];
+    protected $appends = ['has_admin_link', "user_level"];
 
 
 

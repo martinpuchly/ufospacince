@@ -49,7 +49,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('players', function (Blueprint $table) {
-            $table->dropIfExists('player_user_id_foreign');
+            $table->dropIfExists('players_user_id_foreign');
             $table->dropSoftDeletes();
         });
     }
