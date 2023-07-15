@@ -2,7 +2,7 @@
     <AppLayout>
       <div class="row">
         <div class="col-sm-9">
-          <section>
+          <section v-if="slides.length">
             <Slider :slides="slides"></Slider>
           </section>
           <section class="mt-5">
