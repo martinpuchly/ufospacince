@@ -7,13 +7,17 @@ use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 use App\Models\Permission;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AdminController extends Controller
 { 
     public function index(): InertiaResponse
     {
+        Gate::authorize('is-admin');
+
+        $user_permissions = Auth::user()->id == 1 ? null : Auth::user()->permissions;
         return Inertia::render('Admin/Index', [
-            'permissions'=>Auth::user()->permissions
+            'permission_groups'=>Permission::orderedPerm($user_permissions)
         ]);
     }
 }

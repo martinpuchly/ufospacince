@@ -55,14 +55,14 @@ class SlideController extends Controller
 
     public function update(SlideUpdateRequest $request, Slide $slide): RedirectResponse
     {
-        $data = $request->only(['title', 'description', 'link', 'active']);
+        $slide->fill($request->only(['title', 'description', 'link', 'active']));
         if ($request->hasFile('picture') && $request->file('picture')->isValid()) {
             $fileName = time() . '.' . $request->picture->extension();
             $request->picture->storeAs('public/slides', $fileName);
-            
-            $data = array_merge($data, ['picture'=>$fileName]);
+            $slide->fill(['picture'=>$fileName]);
         }
-        $slide->update($data);
+        
+        $slide->save();
         return redirect()->route('admin.slide.edit', ['slide'=>$slide->id])->with('succeed', 'Slide bol upravený.');
     }
 

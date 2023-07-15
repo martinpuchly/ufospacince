@@ -80,7 +80,7 @@
             <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                 {{ form.progress.percentage }}%
               </progress>          
-            <button type="submit" class="btn btn-primary">Pridať slide</button>        
+            <button type="submit" class="btn btn-primary">Uložiť slide</button>        
         </form>
 </AppLayout>
 <Head title="upraviť slider" />
@@ -98,15 +98,17 @@
     })
 
     const form = useForm({
+        _method: 'patch',
         title: props.slide.title,
         description: props.slide.description,
         link: props.slide.link,
         active: props.slide.active,
-        picture: null
+        picture: null,
     })
 
     function submit() {
-        form.patch(route('admin.slide.edit', {slide: props.slide.id}))
+        console.log(form)
+        form.post(route('admin.slide.edit', {slide: props.slide.id}))
     }
 
 

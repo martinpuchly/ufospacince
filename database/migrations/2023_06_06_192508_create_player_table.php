@@ -28,6 +28,7 @@ return new class extends Migration
             $table->integer('show_last_name')->nullable()->default(0);
             $table->integer('show_nickname')->nullable()->default(0);
             $table->integer('show_birth_date')->nullable()->default(0);
+            $table->integer('show_age')->nullable()->default(0);
             $table->integer('show_shirt_number')->nullable()->default(0);
             $table->integer('show_photo')->nullable()->default(0);
             $table->integer('show_about')->nullable()->default(0);

@@ -25,9 +25,12 @@ class Permission extends Model
 
 
 
-     public static function orderedPerm(): Array
+     public static function orderedPerm($permissions=null): Array
      {
-         $permissions = (new static)->all();
+         if(!$permissions){
+            $permissions = (new static)->all();
+         }
+         
          $permissions_order = [];
          $cur_name_permission = "";
  

@@ -1,17 +1,26 @@
-<script setup>
-    import AppLayout from "@/Layouts/AppLayout.vue";
 
-    defineProps({
-        permissions: Array    
-        })
-</script>
 <template>
     <AppLayout>
+        <h2>Administrácia: </h2>
+        <div class="row">
+           <div class="col-4 pb-2 mb-5 border-bottom" v-for="(permissions, index) in permission_groups">
+                <h3>{{ index }}</h3>
+                <div v-for="permission in permissions" v-key="permission.id" >
+                    <Link :href="route(permission.route)" v-if="permission.link_in_admin_menu==1">{{ permission.name }}</Link>
+                </div>
 
-           {{ permissions }}
 
-        
+           </div>
+
+        </div>
     </AppLayout>
 </template>
 
 
+<script setup>
+    import AppLayout from "@/Layouts/AppLayout.vue";
+    import { Link } from "@inertiajs/vue3";
+    defineProps({
+        permission_groups: Array    
+        })
+</script>

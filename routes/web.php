@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
@@ -38,10 +39,13 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::get('/uzivatelia', [UserController::class, 'index'])->name('users')->can('adminViewAny', App\Models\User::class);
+    Route::get('/povolenia', [PermissionController::class, 'adminIndex'])->name('permissions')->can('adminIndex', App\Models\Permission::class);
+
+
 
     #SKUPINY
     Route::get('/skupiny', [GroupController::class, 'index'])->name('groups')->can('viewAny', App\Models\Group::class);
-    Route::post('/skupiny', [GroupController::class, 'store'])->name('groups.add')->can('create', App\Models\Group::class);
+    Route::post('/skupiny', [GroupController::class, 'store'])->name('group.add')->can('create', App\Models\Group::class);
     Route::get('/skupiny/upravit/{group}', [GroupController::class, 'edit'])->name('group.edit')->can('update', App\Models\Group::class);
     Route::patch('/skupiny/upravit/{group}', [GroupController::class, 'update'])->can('update', App\Models\Group::class);
     Route::delete('/skupiny/vymazat/{group}', [GroupController::class, 'delete'])->name('group.delete')->can('delete', App\Models\Group::class);
@@ -62,7 +66,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/hraci', [PlayerController::class, 'adminIndex'])->name('players')->can('adminIndex', App\Models\Player::class);
     Route::get('/hrac/novy/{user?}', [PlayerController::class, 'create'])->name('player.add')->can('create', App\Models\Player::class);
     Route::post('/hrac/novy/{user?}', [PlayerController::class, 'store'])->can('create', App\Models\Player::class);
-
+    Route::post('/hrac/restore/{player}', [PlayerController::class, 'restore'])->name('player.restore')->can('restore', App\Models\Player::class);
+    Route::delete('/hrac/destroy/{player}', [PlayerController::class, 'destroy'])->name('player.destroy')->can('destroy', App\Models\Player::class);
+    Route::patch('/hrac/setuser/{player}', [PlayerController::class, 'setUser'])->name('player.setUser')->can('set_user', App\Models\Player::class);
 
     #SLIDER
     Route::get('/slides', [SlideController::class, 'index'])->name('slides')->can('viewAny', App\Models\Slide::class);
@@ -75,12 +81,15 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/slide/{slide}/setActive', [SlideController::class, 'setActive'])->name('slide.setActive')->can('update', App\Models\Slide::class);
     Route::get('/slide/{slide}/setDownPosition', [SlideController::class, 'setDownPosition'])->name('slide.setDownPosition')->can('update', App\Models\Slide::class);
     Route::get('/slide/{slide}/setUpPosition', [SlideController::class, 'setUpPosition'])->name('slide.setUpPosition')->can('update', App\Models\Slide::class);
-
+    
+   
 
 });
 
 
-Route::get('/hrac/upravit/{player?}', [PlayerController::class, 'edit'])->name('player.edit')->middleware('can:edit,player');
-Route::patch('/hrac/upravit/{player?}', [PlayerController::class, 'update'])->middleware('can:edit,player');
+Route::get('/tim', [PlayerController::class, 'index'])->name('players');
+Route::get('/hrac/upravit/{player?}', [PlayerController::class, 'edit'])->name('player.edit')->can('edit', App\Models\Player::class);
+Route::patch('/hrac/upravit/{player?}', [PlayerController::class, 'update'])->can('edit', App\Models\Player::class);
 Route::delete('/hrac/vymazat/{player?}', [PlayerController::class, 'delete'])->name('player.delete')->middleware('can:delete,player');
-Route::delete('/hrac/destroy/{player?}', [PlayerController::class, 'destroy'])->name('player.destroy')->middleware('can:destroy,player');
+Route::get('/hrac/{player_slug}', [PlayerController::class, 'show'])->name('player.show');
+

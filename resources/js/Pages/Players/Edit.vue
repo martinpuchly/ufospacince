@@ -18,7 +18,7 @@
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="photo" class="form-label block">Fotka</label>
-                    <img :src="player.photo ?? '/images/siluette.png'" :alt="'fotka '+player.name" class="image-fluid rounded" style="max-width: 80%; display: block; "/>
+                    <img :src="player.photo ? player.full_photo_path : '/images/siluette.png'" :alt="'fotka '+player.name" class="image-fluid rounded" style="max-width: 80%; display: block; "/>
                     <input class="form-control" type="file" id="photo" @input="form.photo = $event.target.files[0]">
                     <div v-if="errors.photo" class="text-danger">
                             {{ errors.photo }}
@@ -97,13 +97,24 @@
             </div>
 
             <div class="mb-3 row border-bottom border-secondary">
-                <label for="show_birth_date" class="col-sm-6 col-form-label">Zobraziť dátum narodenia/vek: </label>
+                <label for="show_birth_date" class="col-sm-6 col-form-label">Zobraziť dátum narodenia: </label>
                 <div class="col-sm-6">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_birth_date" v-model="form.show_birth_date">
                         <option v-for="title, index in show_options" v-key="index" :value="index">{{ title }}</option>
                     </select>
                     <div v-if="errors.show_birth_date" class="text-danger">
                         {{ errors.show_birth_date }}
+                    </div>    
+                </div>
+            </div>
+            <div class="mb-3 row border-bottom border-secondary">
+                <label for="show_age" class="col-sm-6 col-form-label">Zobraziť vek: </label>
+                <div class="col-sm-6">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_age" v-model="form.show_age">
+                        <option v-for="title, index in show_options" v-key="index" :value="index">{{ title }}</option>
+                    </select>
+                    <div v-if="errors.show_age" class="text-danger">
+                        {{ errors.show_age }}
                     </div>    
                 </div>
             </div>
@@ -134,7 +145,7 @@
 
             
             <div class="mb-3 row border-bottom border-secondary">
-                <label for="show_about" class="col-sm-6 col-form-label">Zobraziť fotku: </label>
+                <label for="show_about" class="col-sm-6 col-form-label">Zobraziť o mne: </label>
                 <div class="col-sm-6">
                     <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_about" v-model="form.show_about">
                         <option v-for="title, index in show_options" v-key="index" :value="index">{{ title }}</option>
@@ -167,7 +178,28 @@
             </Link> 
         </div>
     </form>
-        
+    
+    <div v-if="can_set_user" class="mt-5">
+        <form @submit.prevent="submitSetUser" >
+            <h2>Priradiť hráča k registrácii:</h2>
+            <div class="mb-3 row">
+                <label for="show_about" class="col-sm-6 col-form-label">Registrovaný užívateľ: </label>
+                <div class="col-sm-6">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm" id="show_about" v-model="setUserForm.user_id">
+                        <option value="" selected>-- nemá registrovaný účet --</option>
+                        <option v-for="user in users" v-key="user.id" :value="user.id">{{ user.name }}</option>
+                    </select>
+                    <div v-if="errors.show_about" class="text-danger">
+                        {{ errors.user_id }}
+                    </div>    
+                </div>
+                <button type="submit" class="btn btn-primary mx-auto" style="width: 50%">Uložiť</button>
+            </div>
+
+        </form>
+    </div>
+
+
     </AppLayout>
 </template>
 
@@ -183,13 +215,15 @@
         player: Object,
         user_name: String,
         show_options: Object,
-        errors: Object
+        errors: Object,
+        can_set_user: Boolean,
+        users: Object
     })
 
 
 
     const form = useForm({
-            id: props.player.id,
+            _method: 'patch',
             first_name: props.player.first_name,
             last_name: props.player.last_name,
             nickname: props.player.nickname,
@@ -197,27 +231,35 @@
             shirt_number: props.player.shirt_number,
             photo: null,
             about: props.player.about,
-
             show_first_name: props.player.show_first_name,
             show_last_name: props.player.show_last_name,
             show_nickname: props.player.show_nickname,
             show_birth_date: props.player.show_birth_date,
+            show_age: props.player.show_age,
             show_shirt_number: props.player.show_shirt_number,
             show_photo: props.player.show_photo,
             show_about: props.player.show_about,
             show_user: props.player.show_user,
             active: props.player.active,
 
-        })
+    })
+    const submit = () => {
+        form.post(route('player.edit', props.player.id));
 
-
-        const submit = () => {
-
-            form.patch(route('player.edit', props.player.id), {
-                        forceFormData: true,
-                        });
-    
     }
+
+
+    const setUserForm = useForm({
+        user_id: props.player.user_id ? props.player.user_id : 0
+    })
+    const submitSetUser = () => {
+        if(setUserForm.user_id == 0){
+            setUserForm.user_id = null;
+        }
+        setUserForm.patch(route('admin.player.setUser', props.player.id));
+
+    }
+
 
     function del() {
         if(confirm('Skutočne chcete hráča vymazať?')){

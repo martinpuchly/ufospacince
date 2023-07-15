@@ -19,7 +19,7 @@ class PlayerPolicy
 
     public function adminIndex(User $user): Response|bool
     {
-        return $user->hasPermission('admin-users');
+        return $user->hasPermission('admin-players');
 
     }
 
@@ -33,8 +33,9 @@ class PlayerPolicy
     }
 
 
-    public function edit(User $user, Player $player=null): bool|Response
+    public function edit(User $user, ?Player $player=null): bool|Response
     {
+        return true;
         if($user->hasPermission('player-edit') && $player!=null){
             return true;
         }
@@ -45,7 +46,7 @@ class PlayerPolicy
         return abort(403);
     }
 
-
+ 
     public function delete(User $user, Player $player=null): bool|Response
     {
         if($user->hasPermission('player-delete') && $player){
@@ -55,6 +56,31 @@ class PlayerPolicy
             return true;
         }
 
+        return abort(403);
+    }
+
+    public function destroy(User $user): bool|Response
+    {
+        if($user->hasPermission('player-destroy')){
+            return true;
+        }
+        return abort(403);
+    }
+
+    public function restore(User $user): bool|Response
+    {
+        if($user->hasPermission('player-restore')){
+            return true;
+        }
+        return abort(403);
+    }
+
+
+    public function set_user(User $user): bool|Response
+    {
+        if($user->hasPermission('player-set-user')){
+            return true;
+        }
         return abort(403);
     }
 

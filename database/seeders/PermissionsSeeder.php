@@ -54,11 +54,22 @@ class PermissionsSeeder extends Seeder
 */
     
 
-        Permission::insert(['main_name' => 'Stránka', 'name' => 'SLIDERS - zoznam', 'key' => 'slides', 'route' => 'admin.slides', 'link_in_admin_menu' => 1]);
-        Permission::insert(['main_name' => 'Stránka', 'name' => 'SLIDER - pridať', 'key' => 'slide-add', 'route' => 'admin.slide.add', 'link_in_admin_menu' => 1]);
-        Permission::insert(['main_name' => 'Stránka', 'name' => 'SLIDER - upraviť', 'key' => 'slide-edit', 'route' => 'admin.slide.edit', 'link_in_admin_menu' => 0]);
-        Permission::insert(['main_name' => 'Stránka', 'name' => 'SLIDER - vymazať', 'key' => 'slide-delete', 'route' => 'admin.slide.delete', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'SLIDERS - zoznam', 'key' => 'slides', 'route' => 'admin.slides', 'link_in_admin_menu' => 1]);
+        Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'SLIDER - pridať', 'key' => 'slide-add', 'route' => 'admin.slide.add', 'link_in_admin_menu' => 1]);
+        Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'SLIDER - upraviť', 'key' => 'slide-edit', 'route' => 'admin.slide.edit', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'SLIDER - vymazať', 'key' => 'slide-delete', 'route' => 'admin.slide.delete', 'link_in_admin_menu' => 0]);
 
+
+        #PLAYERS
+        Permission::insert(['main_name' => 'Hráči', 'name' => 'zoznam hráčov', 'key' => 'admin-players', 'route' => 'admin.players', 'link_in_admin_menu' => 1]);
+        Permission::insert(['main_name' => 'Hráči', 'name' => 'vytvoriť hráča', 'key' => 'player-add', 'route' => 'admin.player.add', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Hráči', 'name' => 'upraviť hráča', 'key' => 'player-edit', 'route' => 'admin.player.edit', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Hráči', 'name' => 'vymazať hráča', 'key' => 'player-delete', 'route' => 'admin.player.delete', 'link_in_admin_menu' => 0]);
+        
+        Permission::insert(['main_name' => 'Hráči', 'name' => 'trvale vymazať hráča', 'key' => 'player-destroy', 'route' => 'player.destroy', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Hráči', 'name' => 'obnoviť hráča', 'key' => 'player-restore', 'route' => 'player.delete', 'link_in_admin_menu' => 0]);
+        
+        Permission::insert(['main_name' => 'Hráči', 'name' => 'prideliť hráča registrácii', 'key' => 'player-set-user', 'route' => 'player.setUser', 'link_in_admin_menu' => 0]);
 
     
     }

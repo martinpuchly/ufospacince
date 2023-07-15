@@ -89,4 +89,22 @@ class User extends Authenticatable
         );
     }
 
+    private function level(){
+        if($this->player){
+            return 2;
+        }
+        return 1;
+    }
+
+
+    protected function userLevel(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->level(),
+        );
+    }
+
+
+
+
 }

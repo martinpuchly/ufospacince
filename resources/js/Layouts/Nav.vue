@@ -22,7 +22,7 @@
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="#">Tím</a>
+                <a class="nav-link" :href="route('players')">Tím</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">O klube</a>
@@ -34,7 +34,7 @@
             <div class="text-secondary">
               <div v-if="$page.props.auth.user">
                 <span>{{ $page.props.auth.user.name }}</span> | 
-                <span v-if="$page.props.auth.user.has_admin_link"><a href="">administrácia</a></span> | 
+                <span v-if="$page.props.auth.user.has_admin_link"><Link :href="route('admin')">administrácia</Link></span> |  
                 <span><Link :href="route('logout')" method="POST" >odhlásiť</Link></span>
               </div>
               <div v-else>

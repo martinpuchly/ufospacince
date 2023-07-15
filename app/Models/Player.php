@@ -6,24 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Player extends Model
 {
     use SoftDeletes;
-
+    use HasFactory;
     protected $fillable = ['first_name', 'last_name', 'nickname', 'birth_date', 'shirt_number', 'photo', 'about', 
-                            'show_first_name', 'show_last_name', 'show_nickname', 'show_birth_date', 
+                            'show_first_name', 'show_last_name', 'show_nickname', 'show_birth_date', 'show_age', 
                             'show_shirt_number', 'show_photo', 'show_about', 'show_user', 'user_id', 'show_player', 'slug', 'active'];
     protected $table = 'players';
-    protected $appends = ['name'];
+    protected $appends = ['name', 'full_photo_path'];
 
 
 
     const SHOW_OPTIONS = [
-        0 => "nikto",
-        1 => "iní hráči",
-        2 => "prihlásení používatelia",
-        3 => "všetci",
+        0 => "všetci",
+        1 => "prihlásení používatelia",
+        2 => "iní hráči",
+        3 => "nikto",
     ];
 
     public function user(): BelongsTo
@@ -55,6 +56,23 @@ class Player extends Model
                         ->orWhereNull('first_name')->whereNotNull('show_last_name');
     }
 
+    protected function fullPhotoPath(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->photo ? asset('storage/players/'.$this->photo) : null,
+        );
+    }
+
+    private function countAge(){
+        $diff = date_diff(date_create($this->birth_date), date_create(date("Y-m-d")));
+        return $diff->format("%y");
+    }
+    protected function age(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->countAge(),
+        );
+    }
 
 
 }

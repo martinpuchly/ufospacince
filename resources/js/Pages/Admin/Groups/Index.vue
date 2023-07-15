@@ -32,7 +32,7 @@
                                     <Link :href="route('admin.group.edit', group.id)" title="upraviť skupinu" class="col-md-3 badge text-bg-secondary">
                                         upraviť
                                     </Link>
-                                    <Link :href="destroy(group.id)" method="delete" class="col-md-3 badge text-bg-danger">vymazať</Link>
+                                    <Link @click.prevent="destroy(group.id)" method="delete" class="col-md-3 badge text-bg-danger">vymazať</Link>
                                 </div>
                             </td>
                         </tr>

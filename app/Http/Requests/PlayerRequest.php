@@ -37,6 +37,7 @@ class PlayerRequest extends FormRequest
             'show_photo' => 'nullable|boolean',
             'show_about' => 'nullable|boolean',
             'show_user' => 'nullable|boolean',
+            'show_age' => 'nullable|boolean',
             'user_id' => 'nullable|unique:players,user_id,'.$this->user_id, 
             'slug' => 'required|unique:players,slug,'.$this->id, 
 
