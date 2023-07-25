@@ -4,9 +4,9 @@
             <div class="col-sm-9">
                 <h1 class="mb-3">Tím:</h1>
                 <div class="row">
-                        <div class="card mt-5 mx-2" style="width: 18rem;" v-for="player in players" v-key="player.id">
+                        <div class="card mt-5 mx-2" style="width: 18rem;" v-for="player in players.data" v-key="player.id">
                             <div class="position-absolute mx-4 mt-2 fw-bold" style="right:0; font-size: 2em; color:rgba(53,68,110,1)">{{ player.shirt_number }}</div>
-                            <Link :href="route('player.show', {player_slug: player.slug})" class="d-inline">
+                            <Link :href="route('player.show', {player_id: player.id})" class="d-inline">
                                 <img :src="player.photo ? player.full_photo_path : '/images/siluette.png'" class="card-img-top img-fluid mx-1 mt-1" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ player.name }}</h5>

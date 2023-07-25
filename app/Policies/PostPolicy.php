@@ -2,15 +2,15 @@
 
 namespace App\Policies;
 
+use App\Models\Post;
 use App\Models\User;
-use Illuminate\Http\Response;
+use Illuminate\Auth\Access\Response;
 
-
-class PagePolicy
+class PostPolicy
 {
     public function index(User $user): bool|Response
     {
-        if($user->hasPermission('pages')){
+        if($user->hasPermission('posts')){
             return true;
         }
         return abort(403);
@@ -18,7 +18,7 @@ class PagePolicy
 
     public function create(User $user): bool|Response
     {
-        if($user->hasPermission('page-add')){
+        if($user->hasPermission('post-add')){
             return true;
         }
         return abort(403);
@@ -26,7 +26,7 @@ class PagePolicy
 
     public function edit(User $user): bool|Response
     {
-        if($user->hasPermission('page-edit')){
+        if($user->hasPermission('post-edit')){
             return true;
         }
         return abort(403);
@@ -36,7 +36,7 @@ class PagePolicy
 
     public function delete(User $user): bool|Response
     {
-        if($user->hasPermission('page-delete')){
+        if($user->hasPermission('post-delete')){
             return true;
         }
         return abort(403);
@@ -44,7 +44,7 @@ class PagePolicy
 
     public function destroy(User $user): bool|Response
     {
-        if($user->hasPermission('page-destroy')){
+        if($user->hasPermission('post-destroy')){
             return true;
         }
         return abort(403);
@@ -52,7 +52,7 @@ class PagePolicy
 
     public function restore(User $user): bool|Response
     {
-        if($user->hasPermission('page-restore')){
+        if($user->hasPermission('post-restore')){
             return true;
         }
         return abort(403);

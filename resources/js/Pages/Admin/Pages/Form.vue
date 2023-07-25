@@ -17,7 +17,7 @@
         <div class="col-md-4">
             <label for="accessLevel" class="form-label">Prístup:</label>
             <select v-model="form.accessLevel" class="form-select"  id="accessLevel">
-                <option v-for="(show_option , index) in show_options" v-key="index" :value="index">{{ show_option }}</option>
+                <option v-for="(show_option, index) in show_options" v-key="index" :value="index">{{ show_option }}</option>
             </select>
             <div v-if="errors.accessLevel" class="text-danger">
                     {{ errors.accessLevel }}

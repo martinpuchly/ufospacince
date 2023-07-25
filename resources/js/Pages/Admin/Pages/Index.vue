@@ -35,7 +35,7 @@
                             <td>{{ page.description }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <Link :href="route('admin.page.edit', page.id)" title="upraviť" class="btn btn-sm btn-success">
+                                <Link v-if="!page.deleted_at" :href="route('admin.page.edit', page.id)" title="upraviť" class="btn btn-sm btn-success">
                                     upraviť
                                 </Link>
                                 <a v-if="page.deleted_at" @click.prevent="res(page.id, page.title)" title="obnoviť"  class="btn btn-sm btn-primary">

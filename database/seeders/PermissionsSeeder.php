@@ -71,7 +71,7 @@ class PermissionsSeeder extends Seeder
         
         Permission::insert(['main_name' => 'Hráči', 'name' => 'prideliť hráča registrácii', 'key' => 'player-set-user', 'route' => 'player.setUser', 'link_in_admin_menu' => 0]);
 
-    #STRÁNKY
+    #PAGES
         Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'STRÁNKY', 'key' => 'pages', 'route' => 'admin.pages', 'link_in_admin_menu' => 1]);
         Permission::insert(['main_name' => 'Obsah stránky', 'name' => '-> vytvoriť stránku', 'key' => 'page-add', 'route' => 'admin.page.add', 'link_in_admin_menu' => 1]);
         Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'upraviť stránku', 'key' => 'page-edit', 'route' => 'admin.page.edit', 'link_in_admin_menu' => 0]);
@@ -79,7 +79,27 @@ class PermissionsSeeder extends Seeder
         
         Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'trvale vymazať stránku', 'key' => 'page-destroy', 'route' => 'admin.page.destroy', 'link_in_admin_menu' => 0]);
         Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'obnoviť stránku', 'key' => 'page-restore', 'route' => 'admin.page.delete', 'link_in_admin_menu' => 0]);
-    }
+
+
+    #POSTS
+         Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'ČLÁNKY', 'key' => 'posts', 'route' => 'admin.posts', 'link_in_admin_menu' => 1]);
+         Permission::insert(['main_name' => 'Obsah stránky', 'name' => '-> vytvoriť článok', 'key' => 'post-add', 'route' => 'admin.post.add', 'link_in_admin_menu' => 1]);
+         Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'upraviť článok', 'key' => 'post-edit', 'route' => 'admin.post.edit', 'link_in_admin_menu' => 0]);
+         Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'vymazať článok', 'key' => 'post-delete', 'route' => 'admin.post.delete', 'link_in_admin_menu' => 0]);
+         
+         Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'trvale vymazať článok', 'key' => 'post-destroy', 'route' => 'admin.post.destroy', 'link_in_admin_menu' => 0]);
+         Permission::insert(['main_name' => 'Obsah stránky', 'name' => 'obnoviť článok', 'key' => 'post-restore', 'route' => 'admin.post.delete', 'link_in_admin_menu' => 0]);
+   
+   
+    #CONTACTS
+        Permission::insert(['main_name' => 'Užívatelia', 'name' => 'Správy od užívateľov', 'key' => 'contacts', 'route' => 'admin.contacts', 'link_in_admin_menu' => 1]);
+        Permission::insert(['main_name' => 'Užívatelia', 'name' => 'Správy od užívateľov - čítať', 'key' => 'contact-show', 'route' => 'admin.contact.show', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Užívatelia', 'name' => 'Správy od užívateľov - meniť status', 'key' => 'contact-saveStatus', 'route' => 'admin.contact.saveStatus', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Užívatelia', 'name' => 'Správy od užívateľov - vymazať', 'key' => 'contact-destroy', 'route' => 'admin.contact.saveStatus', 'link_in_admin_menu' => 0]);
+
+   
+   
+        }
 
 }
 

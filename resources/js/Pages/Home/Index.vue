@@ -7,6 +7,7 @@
           </section>
           <section class="mt-5">
             <h2>Najnovšie články:</h2>
+            <PostBlock v-for="post in posts" v-key="post.id" :post="post" ></PostBlock>
 
           </section>
         </div>
@@ -33,10 +34,12 @@ import { Head } from '@inertiajs/vue3'
 
   import AppLayout from '@/Layouts/AppLayout.vue'
   import Slider from '@/Components/Slide.vue'
+  import PostBlock from '../Posts/PostBlock.vue';
 
 
     const props = defineProps({
-        slides: Object
+        slides: Object,
+        posts: Object
     })
 
 

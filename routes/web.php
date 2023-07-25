@@ -12,6 +12,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\SlideController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,7 +86,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/slide/{slide}/setUpPosition', [SlideController::class, 'setUpPosition'])->name('slide.setUpPosition')->can('update', App\Models\Slide::class);
     
    
-#STRÁNKY
+#PAGES
     Route::get('/stranky', [PageController::class, 'index'])->name('pages')->can('index', App\Models\Page::class);
     Route::get('/stranky/nova', [PageController::class, 'create'])->name('page.add')->can('create', App\Models\Page::class);
     Route::post('/stranky/nova', [PageController::class, 'store'])->can('create', App\Models\Page::class);
@@ -97,6 +99,24 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::delete('/stranky/{page}/delete', [PageController::class, 'delete'])->name('page.delete')->can('delete', App\Models\Page::class);
     Route::delete('/stranky/{page}/destroy', [PageController::class, 'destroy'])->name('page.destroy')->can('destroy', App\Models\Page::class);
 
+#POSTS
+    Route::get('/clanky', [PostController::class, 'adminIndex'])->name('posts')->can('index', App\Models\Post::class);
+    Route::get('/clanky/novy', [PostController::class, 'create'])->name('post.add')->can('create', App\Models\Post::class);
+    Route::post('/clanky/novy', [PostController::class, 'store'])->can('create', App\Models\Post::class);
+
+
+    Route::get('/clanky/{post}/upravit', [PostController::class, 'edit'])->name('post.edit')->can('edit', App\Models\Post::class);
+    Route::patch('/clanky/{post}/upravit', [PostController::class, 'update'])->can('edit', App\Models\Post::class);
+
+    Route::post('/clanky/{post_id}/restore', [PostController::class, 'restore'])->name('post.restore')->can('restore', App\Models\Post::class);
+    Route::delete('/clanky/{post}/delete', [PostController::class, 'delete'])->name('post.delete')->can('delete', App\Models\Post::class);
+    Route::delete('/clanky/{post_id}/destroy', [PostController::class, 'destroy'])->name('post.destroy')->can('destroy', App\Models\Post::class);
+
+#CONTACTS
+    Route::get('/kontakty/{q?}', [ContactController::class, 'index'])->name('contacts')->can('viewAny', App\Models\Contact::class);
+    Route::get('/kontakt/{contact}', [ContactController::class, 'show'])->name('contact.show')->can('view', App\Models\Contact::class);
+    Route::patch('/kontakt/{contact}/saveStatus', [ContactController::class, 'saveStatus'])->name('contact.saveStatus')->can('saveStatus', App\Models\Contact::class);
+    Route::delete('/kontakt/{contact}/vymazat', [ContactController::class, 'destroy'])->name('contact.delete')->can('destroy', App\Models\Contact::class);
 
 
 });
@@ -106,13 +126,16 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/hrac/upravit/{player?}', [PlayerController::class, 'edit'])->name('player.edit')->can('edit', App\Models\Player::class);
     Route::patch('/hrac/upravit/{player?}', [PlayerController::class, 'update'])->can('edit', App\Models\Player::class);
     Route::delete('/hrac/vymazat/{player?}', [PlayerController::class, 'delete'])->name('player.delete')->middleware('can:delete,player');
-    Route::get('/hrac/{player_slug}', [PlayerController::class, 'show'])->name('player.show');
+    Route::get('/hrac/{player_id}', [PlayerController::class, 'show'])->name('player.show');
 
 
 
+    Route::get('/kontakt', [ContactController::class, 'create'])->name('contact.add');
+    Route::post('/kontakt', [ContactController::class, 'store']);
 
 
-
+Route::get('/clanky/{tag?}', [PostController::class, 'index'])->name('posts');
+Route::get('/clanok/{post_slug}', [PostController::class, 'show'])->name('post');
 
 #STRÁNKY !POSLEDNÝ ROUTE
 Route::get('/{page_slug}', [PageController::class, 'show'])->name('page');

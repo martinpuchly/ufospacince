@@ -4,7 +4,7 @@
             <header>
                 <h1>{{ page.title }}</h1>
             </header>
-            <main v-html="page.body">
+            <main v-html="page.body" style="overflow-wrap: break-word;">
 
             </main>
         </article>

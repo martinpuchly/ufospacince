@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 use App\Http\Requests\PageRequest;
@@ -39,7 +38,7 @@ class PageController extends Controller
     public function store(PageRequest $request): RedirectResponse
     {
         $page = Page::create($request->only(['title', 'slug', 'body', 'accessLevel', 'description', 'user_id']));
-        return back()->with('succeed', 'Stránka bola vytvorená.');
+        return redirect()->route('admin.page.edit', ['page'=>$page->id])->with('Stránka bola vytvorená.');
     }
 
     /**

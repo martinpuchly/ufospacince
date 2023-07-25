@@ -27,6 +27,7 @@
         "bootstrap": "^5.3.0",
         "bootstrap-icons": "^1.10.5",
         "quill-blot-formatter": "^1.0.5",
-        "vue-moments-ago": "^0.2.0"
+        "vue-moments-ago": "^0.2.0",
+        "vue-recaptcha-v3": "^2.0.1"
     }
 }

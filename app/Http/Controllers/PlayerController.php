@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Resources\PlayerResource;
 
+use Illuminate\Support\Str;
 
 class PlayerController extends Controller
 {
@@ -33,7 +34,7 @@ class PlayerController extends Controller
     public function index(): InertiaResponse
     {
         return Inertia::render('Players/Index', [
-            'players'=>Player::showable()->get(),
+            'players'=> PlayerResource::collection(Player::showable()->get()),
         ]);
     }
 
@@ -65,12 +66,10 @@ class PlayerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($player_slug): InertiaResponse
+    public function show($player_id): InertiaResponse
     {
-        if(!$player = Player::showable()->where('slug', $player_slug)->first())
-        {
-            return abort(404);
-        }
+        $player = Player::showable()->findOrFail($player_id);
+
         return Inertia::render('Players/Show', [
             'player'=>new PlayerResource($player)
         ]);
@@ -113,7 +112,6 @@ class PlayerController extends Controller
             $request->photo->storeAs('public/players', $fileName);
             $player->fill(['photo'=>$fileName]);
         }
-
         $player->save();
 
         return redirect()->route('player.edit', ['player'=>$player->id])->with('succeed', 'Hráč bol upravený.');

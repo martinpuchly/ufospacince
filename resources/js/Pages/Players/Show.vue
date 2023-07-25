@@ -47,15 +47,19 @@
             </div>
         </div>
     </AppLayout>
+
+
 </template>
 
 
 
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue';
+    import { Head } from '@inertiajs/vue3'
 
     const props = defineProps({
         player: Object,
     })
+
 
 </script>

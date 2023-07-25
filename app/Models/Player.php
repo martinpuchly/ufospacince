@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 class Player extends Model
 {
@@ -33,27 +34,28 @@ class Player extends Model
     }
 
 
+
     protected function name(): Attribute
     {
-        return Attribute::make(
-            get: fn () => $this->setName()
+        $name = '';
+        $level = Auth::check() ? Auth::user()->userLevel : 0;
+
+        if($this->first_name && $level >= $this->show_first_name) $name.=$this->first_name.' ';
+        if($this->nickname && $level >= $this->show_nickname) $name.=$this->nickname.' ';
+        if($this->last_name && $level >= $this->show_last_name) $name.=$this->last_name;
+
+        return new Attribute(
+            get: fn () => trim($name),
         );
     }
 
 
-    protected function setName(){
-        $name = '';
-        if($this->first_name) $name.=$this->first_name.' ';
-        if($this->nickname) $name.=$this->nickname.' ';
-        if($this->last_name) $name.=$this->last_name;
-        return trim($name);
-    }
-
     public function scopeShowable($query)
     {
-        return $query->whereNotNull('first_name')->whereNotNull('show_first_name')
-                        ->orWhereNull('last_name')->whereNotNull('show_nickname')
-                        ->orWhereNull('first_name')->whereNotNull('show_last_name');
+        $level = Auth::check() ? Auth::user()->userLevel : 0;
+        return $query->whereNotNull('first_name')->where('show_first_name', '<=', $level)
+                        ->orWhereNotNull('last_name')->where('show_last_name', '<=', $level)
+                        ->orWhereNotNull('nickname')->where('show_nickname', '<=', $level);
     }
 
     protected function fullPhotoPath(): Attribute
@@ -63,14 +65,11 @@ class Player extends Model
         );
     }
 
-    private function countAge(){
-        $diff = date_diff(date_create($this->birth_date), date_create(date("Y-m-d")));
-        return $diff->format("%y");
-    }
     protected function age(): Attribute
     {
+        $diff = date_diff(date_create($this->birth_date), date_create(date("Y-m-d")));
         return new Attribute(
-            get: fn () => $this->countAge(),
+            get: fn () => $diff->format("%y"),
         );
     }
 

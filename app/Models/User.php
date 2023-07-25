@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -64,8 +65,19 @@ class User extends Authenticatable
         return $this->hasOne(Player::class);
     }
 
-    private function allPermissions()
+    public function posts(): HasMany
     {
+        return $this->hasMany(Post::class);
+    }
+
+
+
+    public function allPermissions()
+    {
+        if($this->id===1){
+            return Permission::pluck('key')->toArray();
+        }
+
         $permmissions = [];
         $groups = $this->groups;
         foreach ($groups as $group) {
@@ -89,20 +101,24 @@ class User extends Authenticatable
         );
     }
 
+
+
+
     private function level(){
         if($this->player){
             return 2;
         }
         return 1;
     }
-
-
     protected function userLevel(): Attribute
     {
         return new Attribute(
             get: fn () => $this->level(),
         );
     }
+
+
+
 
 
 

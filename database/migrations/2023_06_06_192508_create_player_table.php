@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('slug');
+            $table->string('slug')->nullable();
             $table->boolean('show_player')->default(1);
 
             $table->string('nickname')->nullable();
