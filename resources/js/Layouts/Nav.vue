@@ -15,20 +15,19 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" :href="route('posts')">Články</a>
+                <Link class="nav-link" aria-current="page" :href="route('posts')">Články</Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Kalendár</a>
-              </li>
-              
-              <li class="nav-item">
-                <a class="nav-link" :href="route('players')">Tím</a>
+                <Link class="nav-link" :href="route('page', {page_slug: 'kalendar'})">Kalendár</Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">O klube</a>
+                <Link class="nav-link" :href="route('players')">Tím</Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" :href="route('contact.add')">Kontakt</a>
+                <Link class="nav-link" :href="route('page', {page_slug: 'o-klube'})">O klube</Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link" :href="route('contact.add')">Kontakt</Link>
               </li>
             </ul>
             <div class="text-secondary">

@@ -48,7 +48,8 @@
         })
 
     const submit = () => {
-        form.post(route('admin.player.add', {user: props.user.id}))
+        let user_id = props.user ? props.user.id : ""
+        form.post(route('admin.player.add', {user: user_id}))
     }
 
 </script>
