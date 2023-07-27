@@ -14,7 +14,7 @@ use App\Http\Controllers\SlideController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\TrainingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -117,6 +117,16 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/kontakt/{contact}', [ContactController::class, 'show'])->name('contact.show')->can('view', App\Models\Contact::class);
     Route::patch('/kontakt/{contact}/saveStatus', [ContactController::class, 'saveStatus'])->name('contact.saveStatus')->can('saveStatus', App\Models\Contact::class);
     Route::delete('/kontakt/{contact}/vymazat', [ContactController::class, 'destroy'])->name('contact.delete')->can('destroy', App\Models\Contact::class);
+
+
+#TRAININGS
+    Route::get('/treningy/{q?}', [TrainingController::class, 'adminIndex'])->name('trainings'); //->can('create', App\Models\Training::class)
+    Route::get('/trening/novy', [TrainingController::class, 'create'])->name('training.add'); //->can('create', App\Models\Training::class)
+    Route::post('/trening/novy', [TrainingController::class, 'store']); //->can('create', App\Models\Training::class)
+    
+    Route::get('/trening/{training}/upravit', [TrainingController::class, 'edit'])->name('training.edit'); //->can('edit', App\Models\Training::class)
+    Route::patch('/trening/{training}/upravit', [TrainingController::class, 'update']); //->can('edit', App\Models\Training::class)
+    Route::delete('/trening/{training}/vymazat', [TrainingController::class, 'destroy'])->name('training.delete'); //->can('edit', App\Models\Training::class)
 
 
 });

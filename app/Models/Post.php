@@ -44,13 +44,13 @@ class Post extends Model
         );
     }
 
-        // ČITATEĽNÝ DÁTUM PUBLIKOVANIA
-        protected function tagsArray(): Attribute
-        {
-            return new Attribute(
-                get: fn () => array_filter(array_map('trim', explode(',', $this->tags)), function($a){ return $a != '';}),
-            );
-        }
+    // ČITATEĽNÝ DÁTUM PUBLIKOVANIA
+    protected function tagsArray(): Attribute
+    {
+        return new Attribute(
+            get: fn () => array_filter(array_map('trim', explode(',', $this->tags)), function($a){ return $a != '';}),
+        );
+    }
 
 
     public function scopePublish($query)
