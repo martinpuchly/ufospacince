@@ -23,7 +23,7 @@ class Player extends Model
 
     const SHOW_OPTIONS = [
         0 => "všetci",
-        1 => "prihlásení používatelia",
+        1 => "prihlásení poPoužívateľia",
         2 => "iní hráči",
         3 => "nikto",
     ];

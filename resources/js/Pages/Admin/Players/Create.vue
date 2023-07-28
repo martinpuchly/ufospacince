@@ -1,5 +1,11 @@
 <template>
     <AppLayout>
+        <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><Link :href="route('admin')">Admin</Link></li>
+                    <li class="breadcrumb-item"><Link :href="route('admin.players')">Hráči</Link></li>
+                </ol>
+            </nav>
         <h1>Vytvoriť profil hráča</h1>
         <h3>Užívateľ: {{ user ? user.name : "nepriradený" }}</h3>
         <form @submit.prevent="submit" >
@@ -33,7 +39,7 @@
 
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue'
-    import { useForm } from '@inertiajs/vue3'
+    import { useForm, Link } from '@inertiajs/vue3'
 
 
     const props = defineProps({

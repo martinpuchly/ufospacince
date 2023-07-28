@@ -120,13 +120,13 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
 
 #TRAININGS
-    Route::get('/treningy/{q?}', [TrainingController::class, 'adminIndex'])->name('trainings'); //->can('create', App\Models\Training::class)
-    Route::get('/trening/novy', [TrainingController::class, 'create'])->name('training.add'); //->can('create', App\Models\Training::class)
-    Route::post('/trening/novy', [TrainingController::class, 'store']); //->can('create', App\Models\Training::class)
+    Route::get('/treningy/{q?}', [TrainingController::class, 'adminIndex'])->name('trainings')->can('viewAny', App\Models\Training::class); 
+    Route::get('/trening/novy', [TrainingController::class, 'create'])->name('training.add')->can('create', App\Models\Training::class); 
+    Route::post('/trening/novy', [TrainingController::class, 'store'])->can('create', App\Models\Training::class); 
     
-    Route::get('/trening/{training}/upravit', [TrainingController::class, 'edit'])->name('training.edit'); //->can('edit', App\Models\Training::class)
-    Route::patch('/trening/{training}/upravit', [TrainingController::class, 'update']); //->can('edit', App\Models\Training::class)
-    Route::delete('/trening/{training}/vymazat', [TrainingController::class, 'destroy'])->name('training.delete'); //->can('edit', App\Models\Training::class)
+    Route::get('/trening/{training}/upravit', [TrainingController::class, 'edit'])->name('training.edit')->can('edit', App\Models\Training::class); 
+    Route::patch('/trening/{training}/upravit', [TrainingController::class, 'update'])->can('edit', App\Models\Training::class); 
+    Route::delete('/trening/{training}/vymazat', [TrainingController::class, 'destroy'])->name('training.delete')->can('delete', App\Models\Training::class); 
 
 
 });

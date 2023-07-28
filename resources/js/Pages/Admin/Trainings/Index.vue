@@ -3,7 +3,6 @@
         <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><Link :href="route('admin')">Admin</Link></li>
-                    <li class="breadcrumb-item"><Link :href="route('/')">Tréningy</Link></li>
                 </ol>
             </nav>
             <div class="float-end">
