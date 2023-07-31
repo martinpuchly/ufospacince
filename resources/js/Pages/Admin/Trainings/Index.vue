@@ -36,8 +36,8 @@
                         <tr v-for="training in trainings.data">
                             <td>{{ training.id }}</td>
                             <td>{{ training.nicer_date_time }}</td>
-                            <td>{{ training_places[training.place] }}</td>
-                            <td>{{ training_types[training.type] }}</td>
+                            <td>{{ training.value_place }}</td>
+                            <td>{{ training.value_type }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <Link v-if="$page.props.auth.permissions.includes('training-edit')" :href="route('admin.training.edit', training.id)" title="upraviť" class="btn btn-sm btn-success">

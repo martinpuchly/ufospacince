@@ -20,9 +20,7 @@ class TrainingController extends Controller
                                     ->when($q == null, function (Builder $query) {
                                         $query->where('date_time', '>', Date("Y-m-d H:i"));
                                     })
-                                    ->paginate(20),
-            'training_types' => Training::TYPES,
-            'training_places' => Training::PLACES
+                                    ->paginate(20)
         ]);
     }
     
