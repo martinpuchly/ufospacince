@@ -7,7 +7,7 @@
                 </ol>
             </nav>
             <div class="float-end">
-                <Link :href="route('admin.post.add')">
+                <Link :href="route('admin.post.add')" v-if="$page.props.auth.permissions.includes('post-add')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -49,16 +49,16 @@
                             </td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <Link v-if="!post.deleted_at" :href="route('admin.post.edit', post.id)" title="upraviť" class="btn btn-sm btn-success">
+                                <Link v-if="!post.deleted_at && $page.props.auth.permissions.includes('post-edit')" :href="route('admin.post.edit', post.id)" title="upraviť" class="btn btn-sm btn-success">
                                     upraviť
                                 </Link>
-                                <a v-if="post.deleted_at" @click.prevent="res(post.id, post.title)" title="obnoviť"  class="btn btn-sm btn-primary">
+                                <a v-if="post.deleted_at && $page.props.auth.permissions.includes('post-restore')" @click.prevent="res(post.id, post.title)" title="obnoviť"  class="btn btn-sm btn-primary">
                                     obnoviť
                                 </a>
-                                <a v-if="post.deleted_at" @click.prevent="des(post.id, post.title)" title="trvale vymazať"  class="btn btn-sm btn-danger">
+                                <a v-if="post.deleted_at && $page.props.auth.permissions.includes('post-destroy')" @click.prevent="des(post.id, post.title)" title="trvale vymazať"  class="btn btn-sm btn-danger">
                                     trvale vymazať
                                 </a>
-                                <a v-else :href="route('admin.post.delete', post.id)" @click.prevent="del(post.id, post.title)" title="vymazať"  class="btn btn-sm btn-danger">
+                                <a v-if="!post.deleted_at && $page.props.auth.permissions.includes('post-delete')" :href="route('admin.post.delete', post.id)" @click.prevent="del(post.id, post.title)" title="vymazať"  class="btn btn-sm btn-danger">
                                     vymazať
                                 </a>
                             </div>

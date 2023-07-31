@@ -30,7 +30,7 @@
                             <td>{{ contact.human_create_date }}</td>
                             <td :style="setStatusColor(contact.status)">{{ statuses[contact.status] }}</td>
                             <td> 
-                                <Link :href="route('admin.contact.show', {contact: contact.id})" class="btn btn-sm btn-info"> zobraziť
+                                <Link v-if="$page.props.auth.permissions.includes('contact-show')" :href="route('admin.contact.show', {contact: contact.id})" class="btn btn-sm btn-info"> zobraziť
                                 </Link>
 
 

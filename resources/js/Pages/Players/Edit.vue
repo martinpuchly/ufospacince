@@ -173,7 +173,7 @@
 
         <div class="float-end d-flex  align-items-center">
             <button type="submit" class="btn btn-primary mx-2">Uložiť</button>
-            <Link class="btn btn-sm btn-danger mx-2" @click.prevent="del()" title="vymazať hráča" method="delete">
+            <Link  v-if="!player.deleted_at && $page.props.auth.permissions.includes('player-delete')" class="btn btn-sm btn-danger mx-2" @click.prevent="del()" title="vymazať hráča" method="delete">
                 Vymazať
             </Link> 
         </div>

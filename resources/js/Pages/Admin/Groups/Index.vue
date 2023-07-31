@@ -25,21 +25,21 @@
                             <td>{{ group.name }}</td>
                             <td>{{ group.description }}</td>
                             <td>
-                                <div class="row gx-5">
-                                    <Link :href="route('admin.permissions.group', group.id)" title="povolenia skupiny" class="col-md-3 badge text-bg-info">
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <Link  v-if="$page.props.auth.permissions.includes('group-permissions')" :href="route('admin.permissions.group', group.id)" title="povolenia skupiny" class="btn btn-sm btn-info">
                                         povolenia
                                     </Link>
-                                    <Link :href="route('admin.group.edit', group.id)" title="upraviť skupinu" class="col-md-3 badge text-bg-secondary">
+                                    <Link  v-if="$page.props.auth.permissions.includes('group-edit')" :href="route('admin.group.edit', group.id)" title="upraviť skupinu" class="btn btn-sm btn-success">
                                         upraviť
                                     </Link>
-                                    <Link @click.prevent="destroy(group.id)" method="delete" class="col-md-3 badge text-bg-danger">vymazať</Link>
+                                    <a  v-if="$page.props.auth.permissions.includes('group-delete')" @click.prevent="destroy(group.id)" method="delete" class="btn btn-sm btn-danger">vymazať</a>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" v-if="$page.props.auth.permissions.includes('group-add')">
                 <h2>Pridať skupinu: </h2>
                 <form @submit.prevent="submit">
                     <div class="mb-3">

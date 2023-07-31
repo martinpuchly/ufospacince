@@ -5,7 +5,7 @@
                     <li class="breadcrumb-item"><Link :href="route('admin')">Admin</Link></li>
                 </ol>
             </nav>
-            <div class="float-end">
+            <div class="float-end" v-if="$page.props.auth.permissions.includes('training-add')">
                 <div class="mb-2">
                     <Link :href="route('admin.training.add')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -40,10 +40,10 @@
                             <td>{{ training_types[training.type] }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                    <Link :href="route('admin.training.edit', training.id)" title="upraviť" class="btn btn-sm btn-success">
+                                    <Link v-if="$page.props.auth.permissions.includes('training-edit')" :href="route('admin.training.edit', training.id)" title="upraviť" class="btn btn-sm btn-success">
                                         upraviť
                                     </Link>
-                                    <a :href="route('admin.training.delete', training.id)" @click.prevent="del(training.id, training.nicer_date_time)" title="vymazať"  class="btn btn-sm btn-danger">
+                                    <a v-if="$page.props.auth.permissions.includes('training-destroy')" :href="route('admin.training.delete', training.id)" @click.prevent="del(training.id, training.nicer_date_time)" title="vymazať"  class="btn btn-sm btn-danger">
                                         vymazať
                                     </a>
                                 </div>

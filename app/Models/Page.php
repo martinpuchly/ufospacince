@@ -17,7 +17,7 @@ class Page extends Model
 
     const SHOW_OPTIONS = [
         0 => "všetci",
-        1 => "prihlásení poPoužívateľia",
+        1 => "prihlásení používateľia",
         2 => "iní hráči",
         3 => "nikto",
     ];

@@ -15,9 +15,11 @@ class AdminController extends Controller
     {
         Gate::authorize('is-admin');
 
-        $user_permissions = Auth::user()->id == 1 ? null : Auth::user()->permissions;
+        $user_permissions_keys = Auth::user()->allPermissions();
+        $perms_coll = Permission::where('link_in_admin_menu', 1)->get();
+
         return Inertia::render('Admin/Index', [
-            'permission_groups'=>Permission::orderedPerm($user_permissions)
+            'permission_groups'=>Permission::orderedPerm($perms_coll->whereIn('key', $user_permissions_keys)),
         ]);
     }
 }

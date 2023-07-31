@@ -5,7 +5,7 @@
                 <li class="breadcrumb-item"><a :href="route('admin')">Admin</a></li>
             </ol>
         </nav>
-        <div class="float-end">
+        <div class="float-end" v-if="$page.props.auth.permissions.includes('slide-add')">
                 <Link :href="route('admin.slide.add')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -36,31 +36,31 @@
                     </td>
                     <td>
                         <div class="form-check form-switch">
-                            <input class="form-check-input pointer" type="checkbox" role="switch" :id="'slide_'+slide.id" :checked="slide.active" @click="setActive(slide.id)">
+                            <input  v-if="$page.props.auth.permissions.includes('slide-edit')" class="form-check-input pointer" type="checkbox" role="switch" :id="'slide_'+slide.id" :checked="slide.active" @click="setActive(slide.id)">
                         </div>    
                     
                     </td>
                     <td>
-                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <button type="button" class="btn btn-sm btn-success" @click.prevent="setUpPosition(slide.id)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-                            </svg>
-                        </button>
-                        <span class="btn  btn-sm btn-warning">{{ slide.position }}</span>
-                        <button type="button" class="btn btn-sm btn-danger" @click.prevent="setDownPosition(slide.id)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                            </svg>
-                        </button>
+                        <div class="btn-group" role="group" v-if="$page.props.auth.permissions.includes('slide-edit')">
+                            <button type="button" class="btn btn-sm btn-success" @click.prevent="setUpPosition(slide.id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                    <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                </svg>
+                            </button>
+                            <span class="btn  btn-sm btn-warning">{{ slide.position }}</span>
+                            <button type="button" class="btn btn-sm btn-danger" @click.prevent="setDownPosition(slide.id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                </svg>
+                            </button>
                         </div>    
                     </td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                            <Link :href="route('admin.slide.edit', slide.id)" title="upraviť" class="btn btn-sm btn-success">
+                            <Link  v-if="$page.props.auth.permissions.includes('slide-edit')" :href="route('admin.slide.edit', slide.id)" title="upraviť" class="btn btn-sm btn-success">
                                 upraviť
                             </Link>
-                            <a :href="route('admin.slide.delete', slide.id)" @click.prevent="del(slide.id)" title="vymazať"  class="btn btn-sm btn-danger">
+                            <a  v-if="$page.props.auth.permissions.includes('slide-delete')" :href="route('admin.slide.delete', slide.id)" @click.prevent="del(slide.id)" title="vymazať"  class="btn btn-sm btn-danger">
                                 vymazať
                             </a>
                         </div>

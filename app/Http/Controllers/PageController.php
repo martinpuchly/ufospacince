@@ -50,9 +50,14 @@ class PageController extends Controller
         {
             return abort(404);
         }
-        if(Auth::user()->user_level < $page->accessLevel and Auth::id() != $page->user_id){
+
+    // POVOLENIE NA ZOBRAZENIE DANEJ STRÁNKY
+    if($page->accessLevel != 0){
+        if(!Auth::check() or Auth::user()->user_level < $page->accessLevel and Auth::id() != $page->user_id){
             return abort(403);
         }
+    }
+
 
         return Inertia::render('Pages/Show', [
             'page'=>$page
