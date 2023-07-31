@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <nav class="navbar navbar-color navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <nav class="navbar navbar-color navbar-expand-lg navbar-custom" data-bs-theme="dark">
         <div class="container-fluid">
           <a class="navbar-brand" :href="route('/')">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16" style="position: relative; top:-.15em;">

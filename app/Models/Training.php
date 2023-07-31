@@ -16,7 +16,7 @@ class Training extends Model
         'date_time' => 'datetime:Y-m-d H:i',
     ];
 
-    protected $appends = ['nicer_date_time'];
+    protected $appends = ['nicer_date_time', 'value_type', 'value_place'];
 
     const TYPES = [
         1 => "bežný",
@@ -40,6 +40,21 @@ class Training extends Model
             get: fn () =>  $this->date_time->format("d.n.Y").' o '.$this->date_time->format("H:i").' hod.',
         );
     }
+
+    protected function valueType(): Attribute
+    {
+        return new Attribute(
+            get: fn () =>  SELF::TYPES[$this->type],
+        );
+    }
+
+    protected function valuePlace(): Attribute
+    {
+        return new Attribute(
+            get: fn () =>  SELF::PLACES[$this->place],
+        );
+    }
+
 
 
 }

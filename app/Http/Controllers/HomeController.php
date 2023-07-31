@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 use App\Models\Slide;
 use App\Models\Post;
+use App\Models\Training;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,8 @@ class HomeController extends Controller
                                                                 $query->select('id', 'name');
                                                             }])
                                                             ->publish()
-                                                            ->take(2)->get()
+                                                            ->take(2)->get(),
+            'trainings'=> Training::where('date_time', '>', Date("Y-m-d H:i"))->take(3)->get()
         ]);
     }
 

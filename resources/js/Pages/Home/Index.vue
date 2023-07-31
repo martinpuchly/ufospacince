@@ -1,7 +1,7 @@
 <template>
     <AppLayout>
       <div class="row">
-        <div class="col-sm-9">
+        <div class="col-md-9 px-2">
           <section v-if="slides.length">
             <Slider :slides="slides"></Slider>
           </section>
@@ -11,8 +11,20 @@
 
           </section>
         </div>
-        <div class="col-sm-3 d-none d-md-flex">
-          <h3>Facebook</h3>
+        <div class="col-md-3 border-start">
+          <section v-if="trainings.length" class="mb-3">
+            <h3>Najbližšie tréningy</h3>
+            <div v-for="training in trainings" class="border-bottom mb-3 pb-3">
+                <div class="fw-bold fs-5">
+                  {{ training.nicer_date_time }}
+                </div>
+                <div class="fs-5"><span class="fw-bold">Typ: </span>{{ training.value_type }} tréning</div>
+                <div class="fs-5"><span class="fw-bold">Miesto: </span>{{ training.value_place }}</div>
+            </div>
+          </section>
+          <section class="mt-5">
+            <h3>Facebook</h3>
+          </section>
         </div>
       </div>
 
@@ -39,7 +51,8 @@ import { Head } from '@inertiajs/vue3'
 
     const props = defineProps({
         slides: Object,
-        posts: Object
+        posts: Object,
+        trainings: Object
     })
 
 

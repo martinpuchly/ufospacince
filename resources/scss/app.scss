@@ -1,15 +1,34 @@
 @import "bootstrap/scss/bootstrap";
 
 
-$p-color: #005a8c;
+$p-color: #35446e;
 $s-color: lighten($p-color, 10%);
+$bg-f-color: darken(#35446e, 5%);
 
 body{
-    background: rgb(53,68,110);
+    background: $bg-f-color;
     background: linear-gradient(180deg, rgba(53,68,110,1) 0%, rgba(53,68,110,0.5074404761904762) 070%);
     background-attachment: fixed;
     min-height: 100%;
 }
+
+
+
+.navbar-custom {
+    background-color: $bg-f-color;
+    color: lighten(#35446e, 40%)
+}
+
+
+a{
+    color: lighten(#35446e, 20%);
+    text-decoration: none;
+}
+
+a:hover, a:focus{
+    text-decoration: underline;
+}
+
 .app{
     min-height: 100%;
     margin: 0;
