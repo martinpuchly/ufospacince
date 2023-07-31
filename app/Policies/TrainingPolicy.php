@@ -26,7 +26,7 @@ class TrainingPolicy
         return abort(403);
     }
     
-    public function update(User $user): bool | RedirectResponse
+    public function edit(User $user): bool | RedirectResponse
     {
         if($user->hasPermission('training-edit')){
             return true;

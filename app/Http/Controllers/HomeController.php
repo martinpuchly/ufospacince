@@ -20,7 +20,9 @@ class HomeController extends Controller
                                                             }])
                                                             ->publish()
                                                             ->take(2)->get(),
-            'trainings'=> Training::where('date_time', '>', Date("Y-m-d H:i"))->take(3)->get()
+            'trainings'=> Training::orderBy('date_time', 'ASC')
+                                    ->where('date_time', '>', Date("Y-m-d H:i"))
+                                    ->take(3)->get()
         ]);
     }
 

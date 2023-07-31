@@ -15,11 +15,11 @@
           <section v-if="trainings.length" class="mb-3">
             <h3>Najbližšie tréningy</h3>
             <div v-for="training in trainings" class="border-bottom mb-3 pb-3">
-                <div class="fw-bold fs-5">
+                <div class="fw-bold fs-5 color-p text-decoration-underline">
                   {{ training.nicer_date_time }}
                 </div>
-                <div class="fs-5"><span class="fw-bold">Typ: </span>{{ training.value_type }} tréning</div>
-                <div class="fs-5"><span class="fw-bold">Miesto: </span>{{ training.value_place }}</div>
+                <div class="fs-5"><span class="fw-bold color-p">Typ: </span>{{ training.value_type }} tréning</div>
+                <div class="fs-5"><span class="fw-bold color-p">Miesto: </span>{{ training.value_place }}</div>
             </div>
           </section>
           <section class="mt-5">
