@@ -33,7 +33,9 @@ class Player extends Model
         return $this->belongsTo(User::class);
     }
 
-
+    public function trainings(){
+        return $this->belongsToMany(Training::class);
+    }
 
     protected function name(): Attribute
     {

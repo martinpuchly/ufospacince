@@ -24,6 +24,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('player_id')->nullable()->constrained('players')->onDelete('set null');
             $table->foreignId('training_id')->nullable()->constrained('trainings')->onDelete('set null');
+            $table->integer('p_status')->nullable()->default(0);
+            $table->integer('a_status')->nullable()->default(0);
             $table->timestamps();
         });
     }

@@ -5,8 +5,10 @@
         </header>
         <main>
             <section v-html="post.intro" style="overflow-wrap: break-word;"></section>
+            <br clear="all">
             <section v-if="post.body" v-html="post.body" style="overflow-wrap: break-word;"></section>
         </main>
+        <br clear="all">
         <footer class="w-100 border-top">
             <section>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-tags mx-1" viewBox="0 0 16 16">

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -16,21 +17,33 @@ class Training extends Model
         'date_time' => 'datetime:Y-m-d H:i',
     ];
 
-    protected $appends = ['nicer_date_time', 'value_type', 'value_place'];
+    protected $appends = ['nicer_date_time', 'value_type', 'value_place', 'passed'];
 
     const TYPES = [
-        1 => "bežný",
-        2 => "herný",
-        3 => "technický",
-        4 => "kondičný",
-        9 => "iný - uvedený v popise",
+        1 => "bežný tréning",
+        2 => "herný tréning",
+        3 => "technický tréning",
+        4 => "kondičný tréning",
+        9 => "iný typ tréningu",
     ];
 
     const PLACES = [
         1 => "ihrisko Špačince",
         2 => "hala",
-        9 => "iný - uvedený v popise",
+        9 => "iné miesto tréningu",
     ];
+
+    public function players(){
+        return $this->belongsToMany(Player::class);
+    }
+
+
+    public function playersOn(){
+        return $this->belongsToMany(Player::class)->showable()->wherePivot('p_status', 2);
+    }
+    public function playersOff(){
+        return $this->belongsToMany(Player::class)->showable()->wherePivot('p_status', 1);
+    }
 
 
     // ČITATEĽNÝ DÁTUM 
@@ -55,6 +68,12 @@ class Training extends Model
         );
     }
 
+    protected function passed(): Attribute
+    {
+        return new Attribute(
+            get: fn () =>  $this->date_time->lessThan(Carbon::now())
+        );
+    }
 
 
 }

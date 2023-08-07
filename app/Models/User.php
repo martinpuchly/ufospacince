@@ -72,7 +72,6 @@ class User extends Authenticatable
     }
 
 
-
     public function allPermissions()
     {
         if($this->id===1){

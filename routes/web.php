@@ -144,6 +144,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::post('/kontakt', [ContactController::class, 'store']);
 
 
+    Route::get('/treningy/{date?}', [TrainingController::class, 'index'])->name('trainings');
+    Route::patch('/trening/savePresence/{training}/{presence}', [TrainingController::class, 'savePresence'])->name('training.savePresence');
+    Route::get('/trening/{training}', [TrainingController::class, 'show'])->name('training');
+
+
 Route::get('/clanky/{tag?}', [PostController::class, 'index'])->name('posts');
 Route::get('/clanok/{post_slug}', [PostController::class, 'show'])->name('post');
 
