@@ -24,8 +24,11 @@
           </section>
           <section class="mt-5">
             <h3>Facebook</h3>
-          </section>
-        </div>
+              <div class="text-center">
+                <div class="fb-page" data-href="https://www.facebook.com/ufospacince" data-tabs="timeline" data-width="290" data-height="" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/ufospacince" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ufospacince">U.F.O. Špačince - Ultimate Frisbee Team</a></blockquote></div>          
+              </div>
+            </section>
+          </div>
       </div>
 
 
@@ -47,6 +50,7 @@ import { Head } from '@inertiajs/vue3'
   import AppLayout from '@/Layouts/AppLayout.vue'
   import Slider from '@/Components/Slide.vue'
   import PostBlock from '../Posts/PostBlock.vue';
+  import { onMounted } from 'vue'
 
 
     const props = defineProps({
@@ -54,6 +58,39 @@ import { Head } from '@inertiajs/vue3'
         posts: Object,
         trainings: Object
     })
+
+
+    onMounted(() => {
+      if (typeof FB === "undefined") {
+          fbInit();
+      } else {
+          window.FB.XFBML.parse();
+      }
+    })
+
+
+    function fbInit() {
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: "3768835300015863",
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: "v6.0"
+            });
+            FB.AppEvents.logPageView();
+        };
+        (function(d, s, id) {
+            var js,
+                fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/sk_SK/sdk.js#xfbml=1&version=v17.0&appId=3768835300015863&autoLogAppEvents=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, "script", "facebook-jssdk");
+    }
 
 
 </script>
