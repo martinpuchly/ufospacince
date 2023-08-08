@@ -26,6 +26,7 @@ class PlayerResource extends JsonResource
             'age' => $level >= $this->show_birth_date && $this->birth_date ? $this->age : null,
             'show_shirt_number' => $level >= $this->show_shirt_number ? $this->shirt_number : null,
             'photo' => $level >= $this->show_photo ? $this->full_photo_path : null,
+            'full_photo_path' => $level >= $this->show_photo ? $this->full_photo_path : null,
             'about' => $level >= $this->show_about ? $this->about : null,
             'user' => $level >= $this->show_user && $this->user ? $this->user->name : null,
             'slug' => $this->slug,
