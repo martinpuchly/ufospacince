@@ -40,7 +40,7 @@ class TrainingController extends Controller
                         ->whereMonth('date_time', $date_data[1])
                         ->get();
 
-        $player_id = Auth::check() ? Auth::user()->player->id : null;
+        $player_id = Auth::check() && Auth::user()->player ? Auth::user()->player->id : null;
 
         $player_trainings_data = DB::table('player_training')
                                             ->select('training_id', 'p_status')
