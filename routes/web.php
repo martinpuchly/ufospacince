@@ -15,6 +15,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\Auth\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -154,3 +156,7 @@ Route::get('/clanok/{post_slug}', [PostController::class, 'show'])->name('post')
 
 #STRÁNKY !POSLEDNÝ ROUTE
 Route::get('/{page_slug}', [PageController::class, 'show'])->name('page');
+
+
+Route::get('auth/{service}', [AuthController::class, 'redirectToProvider'])->name('auth.login');
+Route::get('auth/{service}/callback', [AuthController::class, 'handleProviderCallback']);

@@ -18,7 +18,7 @@
                 <div v-if="post.body">
                     <Link :href="route('post', {post_slug: post.slug})">zobraziť celý článok</Link>
                 </div>
-                publikoval {{ post.user.name }} {{ post.humanize_published_date }}
+                <span v-if="post.user_id">publikoval {{ post.user.name }}</span> {{ post.humanize_published_date }}
             </footer>
         </article>
 
