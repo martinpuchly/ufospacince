@@ -4,6 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <meta name="description" content="Stránka ultimate firsbee tímu U.F.O. Špačince.">
+        <meta name="keywords" content="U.F.O. Špačince, Ultimate Frisbee, Špačince, informácie, tréningy, kontakt">
+        <meta name="author" content="Martin Púchly">
+        
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->

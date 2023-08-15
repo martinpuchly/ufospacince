@@ -2,9 +2,7 @@
     <AppLayout>
         <h1>Tréning:</h1>
         <h2>
-            {{ `${new Date(training.date_time).getDate()}.${new Date(training.date_time).getMonth()+1} ${new Date(training.date_time).getFullYear()}` +
-            ` o ${new Date(training.date_time).getHours()}:${new Date(training.date_time).getMinutes().toString().replace(/^(\d)$/, '0$1')} hod.`+
-            `, ${training.value_type}, ${training.value_place}` }} 
+            {{ date_time_nice + `, ${training.value_type}, ${training.value_place}` }} 
         </h2>
         <section class="row">
             <div class="col-4 fs-4">
@@ -37,7 +35,10 @@
         </section>
         
     </AppLayout>
-    
+    <Head>
+        <title>Tréning {{ date_time_nice }}</title>
+        <meta name="description" content="Your page description">
+    </Head>
     
     </template>
     
@@ -45,7 +46,7 @@
     
     <script setup>
         import AppLayout from '@/Layouts/AppLayout.vue'  
-        import { Link, router } from "@inertiajs/vue3";
+        import { Head } from "@inertiajs/vue3";
 
         const props = defineProps({
             training: Object,
@@ -56,6 +57,7 @@
 
         })
 
-
+        const date_time_nice = `${new Date(props.training.date_time).getDate()}.${new Date(props.training.date_time).getMonth()+1} ${new Date(props.training.date_time).getFullYear()}` +
+            ` o ${new Date(props.training.date_time).getHours()}:${new Date(props.training.date_time).getMinutes().toString().replace(/^(\d)$/, '0$1')} hod.`;
 
     </script>

@@ -61,14 +61,18 @@
         </section>
     </AppLayout>
     
-    
+    <Head>
+        <title>Tréningy</title>
+        <meta name="description" content="Rozpis tréningov.">
+    </Head>
+
     </template>
     
     
     
     <script setup>
         import AppLayout from '@/Layouts/AppLayout.vue'  
-        import { Link, router } from "@inertiajs/vue3";
+        import { Link, router, Head } from "@inertiajs/vue3";
 
         const props = defineProps({
             trainings: Object,

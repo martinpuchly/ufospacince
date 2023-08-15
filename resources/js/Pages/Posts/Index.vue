@@ -9,6 +9,10 @@
     <Pagination :links="posts.links"></Pagination>
 </AppLayout>
 
+<Head>
+  <title>Články</title>
+  <meta name="description" content="Články na stránke U.F.O. Špačince.">
+</Head>
 
 </template>
 
@@ -18,6 +22,7 @@
     import AppLayout from '@/Layouts/AppLayout.vue'
     import PostBlock from './PostBlock.vue';
     import Pagination from '@/Components/Pagination.vue'
+    import { Head } from '@inertiajs/vue3'
 
 
     const props = defineProps({

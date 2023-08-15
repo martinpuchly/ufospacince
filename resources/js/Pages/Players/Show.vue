@@ -48,7 +48,10 @@
         </div>
     </AppLayout>
 
-
+    <Head>
+        <title>{{ player.data.name }}</title>
+        <meta name="description" :content="`profil hráča ${player.data.name}`">
+    </Head>
 </template>
 
 
