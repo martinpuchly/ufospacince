@@ -23,6 +23,7 @@
                             <th>#</th>
                             <th>Titulok</th>
                             <th>Autor</th>
+                            <th>Zobrazenia</th>
                             <th>Publikované</th>
                             <th>Možnosti</th>
                         </tr>
@@ -40,6 +41,7 @@
                                 </a>
                             </td>
                             <td>{{ post.user.name }}</td>
+                            <td class="col-1 text-center">{{ post.views }}</td>
                             <td>
                                 {{ post.readable_published_date }}
                                 <svg v-if="post.published" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">

@@ -8,6 +8,7 @@ use Inertia\Response as InertiaResponse;
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\RedirectResponse; 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -64,7 +65,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($post_slug)
+    public function show(Request $request, string $post_slug)
     {
         if(!$post = Post::orderBy('published_at', 'DESC')->where('slug', $post_slug)
                                                     ->with(['user' => function ($query) {
@@ -74,6 +75,11 @@ class PostController extends Controller
                                                     ->first())
         {
             return abort(404);
+        }
+        if (!$request->session()->exists('post_views_'.$post->id)) 
+        {
+            $post->increment('views');
+            $request->session()->put('post_views_'.$post->id, 1);
         }
         return Inertia::render('Posts/Show', [
             'post' => $post

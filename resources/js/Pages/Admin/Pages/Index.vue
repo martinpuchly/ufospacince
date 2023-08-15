@@ -23,6 +23,7 @@
                             <th>#</th>
                             <th>Titulok</th>
                             <th>URL</th>
+                            <th>Zobrazenia</th>
                             <th>Popis</th>
                             <th>Možnosti</th>
                         </tr>
@@ -32,6 +33,7 @@
                             <td>{{ page.id }}</td>
                             <td>{{ page.title }}</td>
                             <td>{{ page.slug }}</td>
+                            <td class="col-1 text-center">{{ page.views }}</td>
                             <td>{{ page.description }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">

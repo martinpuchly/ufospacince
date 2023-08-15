@@ -8,7 +8,7 @@ use Inertia\Response as InertiaResponse;
 use App\Http\Requests\PageRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
@@ -44,19 +44,25 @@ class PageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($page_slug): InertiaResponse|RedirectResponse
+    public function show(Request $request, string $page_slug): InertiaResponse|RedirectResponse
     {
         if(!$page = Page::where('slug', $page_slug)->with('user')->first())
         {
             return abort(404);
         }
 
-    // POVOLENIE NA ZOBRAZENIE DANEJ STRÁNKY
-    if($page->accessLevel != 0){
-        if(!Auth::check() or Auth::user()->user_level < $page->accessLevel and Auth::id() != $page->user_id){
-            return abort(403);
+        // POVOLENIE NA ZOBRAZENIE DANEJ STRÁNKY
+        if($page->accessLevel != 0){
+            if(!Auth::check() or Auth::user()->user_level < $page->accessLevel and Auth::id() != $page->user_id){
+                return abort(403);
+            }
         }
-    }
+        if (!$request->session()->exists('page_views_'.$page->id)) 
+        {
+            $page->increment('views');
+            $request->session()->put('page_views_'.$page->id, 1);
+        }
+        
 
 
         return Inertia::render('Pages/Show', [
