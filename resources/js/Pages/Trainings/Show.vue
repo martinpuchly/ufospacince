@@ -30,8 +30,8 @@
                 <ul v-if="players_off.data.length">
                     <li v-for="player in players_off.data">{{ player.name }}</li>
                 </ul>
-                <div v-else> 
-                    Nikto s viditelným profilom sa zatiaľ NEúčasť na tréningu nepotvrdil.
+                <div v-else class="text-secondary opacity-75"> 
+                    Nikto s viditelným profilom zatiaľ NEúčasť na tréningu nepotvrdil.
                 </div>
             </div>
         </section>

@@ -15,6 +15,7 @@ class PlayerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // zobrazenie informácií o hráčovi na základe úrovne užívateľa (neprihlásený, prihlásený, hráč, ktokoľvek)
         $level = Auth::check() ? Auth::user()->userLevel : 0;
         return [
             'id' => $this->id,

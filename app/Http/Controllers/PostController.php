@@ -66,13 +66,17 @@ class PostController extends Controller
      */
     public function show($post_slug)
     {
+        if(!$post = Post::orderBy('published_at', 'DESC')->where('slug', $post_slug)
+                                                    ->with(['user' => function ($query) {
+                                                        $query->select('id', 'name');
+                                                    }])
+                                                    ->publish()
+                                                    ->first())
+        {
+            return abort(404);
+        }
         return Inertia::render('Posts/Show', [
-            'post' => Post::orderBy('published_at', 'DESC')->where('slug', $post_slug)
-                                                            ->with(['user' => function ($query) {
-                                                                $query->select('id', 'name');
-                                                            }])
-                                                            ->publish()
-                                                            ->first()
+            'post' => $post
         ]);//
     }
 

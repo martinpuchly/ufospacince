@@ -26,7 +26,7 @@ class PostRequest extends FormRequest
         return [
             'title'=>'required|min:3|max:150',
             'slug'=>'required|min:3|max:160|unique:posts,id,'.$this->id,
-            'intro'=>'required|min:10',
+            'intro'=>'required|min:50',
             'body'=>'nullable|min:10',
             'tags'=>'nullable',
             'published'=>'nullable|boolean',
@@ -59,6 +59,8 @@ class PostRequest extends FormRequest
         $this->merge([
             'slug' => Str::slug($this->title.' '.Date("m-Y")),
             'user_id' => $this->user()->id,
+            'intro' => trim($this->intro),
+            'body' => trim($this->body),
             'published' => $this->published ? true : false, 
             'published_at' => empty($this->published_at) ? Date("Y-m-d H:i") : $this->published_at,
             'tags' => $this->tags ? implode(',' ,array_map(function($a) { return Str::slug($a); }, explode(',', $this->tags))) : ''

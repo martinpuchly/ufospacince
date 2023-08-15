@@ -17,6 +17,14 @@ class TrainingPolicy
         }
         return abort(403);
     }
+
+    public function show(User $user): bool | RedirectResponse
+    {
+        if($user->player){
+            return true;
+        }
+        return abort(403);
+    }
   
     public function create(User $user): bool | RedirectResponse
     {
