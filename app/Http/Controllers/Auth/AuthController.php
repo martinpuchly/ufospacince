@@ -29,7 +29,7 @@ class AuthController extends Controller
      
         Auth::login($user);
      
-        return redirect('/');
+        return redirect('/')->with('Prihlásenie prebehlo úspešne.');
     }
 
 
