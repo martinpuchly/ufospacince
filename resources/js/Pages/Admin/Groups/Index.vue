@@ -86,7 +86,7 @@
     });
 
     const submit = () => {
-        form.post(route('admin.groups.add'), {
+        form.post(route('admin.group.add'), {
             onFinish: () => {
                 form.name=''
                 form.description=''
