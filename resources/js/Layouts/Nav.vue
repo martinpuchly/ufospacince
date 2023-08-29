@@ -18,13 +18,13 @@
                 <Link class="nav-link" aria-current="page" :href="route('posts')">Články</Link>
               </li>
               <li class="nav-item">
-                <Link class="nav-link" :href="route('trainings')">Tréningy</Link>
-              </li>
-              <li class="nav-item">
                 <Link class="nav-link" :href="route('players')">Tím</Link>
               </li>
               <li class="nav-item">
-                <Link class="nav-link" :href="route('page', {page_slug: 'o-klube'})">O klube</Link>
+                <Link class="nav-link" :href="route('trainings')">Tréningy</Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link" :href="route('page', {page_slug: 'ultimate-frisbee'})">Ultimate Frisbee</Link>
               </li>
               <li class="nav-item">
                 <Link class="nav-link" :href="route('contact.add')">Kontakt</Link>

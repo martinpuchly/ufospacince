@@ -12,7 +12,7 @@
           </section>
         </div>
         <div class="col-md-3 border-start">
-          <section v-if="trainings.length" class="mb-3">
+          <section v-if="trainings.length" class="mb-5">
             <h3>Najbližšie tréningy</h3>
             <div v-for="training in trainings" class="border-bottom mb-3 pb-3">
                 <div class="fw-bold fs-5 color-p text-decoration-underline">
@@ -22,7 +22,7 @@
                 <div class="fs-5"><span class="fw-bold color-p">Miesto: </span>{{ training.value_place }}</div>
             </div>
           </section>
-          <section class="mt-5">
+          <section>
             <h3>Facebook</h3>
               <div class="text-center">
                 <div class="fb-page" data-href="https://www.facebook.com/ufospacince" data-tabs="timeline" data-width="290" data-height="" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/ufospacince" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ufospacince">U.F.O. Špačince - Ultimate Frisbee Team</a></blockquote></div>          
@@ -30,7 +30,6 @@
             </section>
           </div>
       </div>
-
 
       <Head>
         <title>Domov</title>

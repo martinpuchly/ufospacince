@@ -30,7 +30,7 @@
                 <tbody>
                     <tr v-for="player in players.data">
                         <td>{{ player.id }}</td>
-                        <td>{{ player.name }}</td>
+                        <td>{{ `${player.first_name} ${player.last_name}` }}</td>
                         <td>{{ player.user ? player.user.name : '' }}</td>
                         <td>
 

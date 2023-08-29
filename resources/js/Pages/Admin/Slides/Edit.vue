@@ -102,7 +102,7 @@
         title: props.slide.title,
         description: props.slide.description,
         link: props.slide.link,
-        active: props.slide.active,
+        active: props.slide.active ? true : false,
         picture: null,
     })
 

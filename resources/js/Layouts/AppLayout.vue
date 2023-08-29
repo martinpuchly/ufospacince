@@ -3,7 +3,7 @@
         <header>
             <div class="row">
                 <div class="col-sm-2">
-                    <img src="/images/logo.png" class="img-fluid px-3 py-2" style="max-height: 8rem;" alt="logo U.F.O. Špačince">
+                    <Link :href="route('/')"><img src="/images/logo.png" class="img-fluid px-3 py-2" style="max-height: 8rem;" alt="logo U.F.O. Špačince"></Link>
                 </div>
                 <div class="col-sm-10 my-auto">
                     <div class="header-title">U.F.O. Špačince</div>    
@@ -27,7 +27,7 @@
 <script setup>
     import Nav from '@/Layouts/Nav.vue'
     import Messages from '@/Shared/Messages.vue'
-
+    import { Link } from '@inertiajs/vue3'
 
 
 </script>

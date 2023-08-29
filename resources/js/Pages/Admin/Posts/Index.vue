@@ -40,7 +40,7 @@
                                 </svg>   
                                 </a>
                             </td>
-                            <td>{{ post.user.name }}</td>
+                            <td>{{ post.user ? post.user.name : '----' }}</td>
                             <td class="col-1 text-center">{{ post.views }}</td>
                             <td>
                                 {{ post.readable_published_date }}
