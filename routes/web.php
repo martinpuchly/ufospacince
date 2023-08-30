@@ -128,7 +128,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     
     Route::get('/trening/{training}/upravit', [TrainingController::class, 'edit'])->name('training.edit')->can('edit', App\Models\Training::class); 
     Route::patch('/trening/{training}/upravit', [TrainingController::class, 'update'])->can('edit', App\Models\Training::class); 
-    Route::delete('/trening/{training}/vymazat', [TrainingController::class, 'destroy'])->name('training.delete')->can('delete', App\Models\Training::class); 
+    Route::delete('/trening/{training}/vymazat', [TrainingController::class, 'destroy'])->name('training.delete')->can('destroy', App\Models\Training::class); 
 
 
 });
