@@ -26,7 +26,7 @@
         <section v-else class="mt-3">
             <div v-for="training in trainings" class="border-bottom mb-3 pb-3 rounded p-4" :class="training.passed ? 'opacity-50' : ''">
                 <div class="row">
-                    <div class="col-md-4 pr-5">
+                    <div class="col-lg-5 col-md-6 pr-5">
                         <h3>
                             {{ `${new Date(training.date_time).getDate()}.${new Date(training.date_time).getMonth()+1} ${new Date(training.date_time).getFullYear()}` }}
                             {{ `o ${new Date(training.date_time).getHours()}:${new Date(training.date_time).getMinutes().toString().replace(/^(\d)$/, '0$1')} hod.` }}

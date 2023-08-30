@@ -7,8 +7,11 @@
         <meta name="description" content="Stránka ultimate firsbee tímu U.F.O. Špačince.">
         <meta name="keywords" content="U.F.O. Špačince, Ultimate Frisbee, Špačince, informácie, tréningy, kontakt">
         <meta name="author" content="Martin Púchly">
-        
+
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

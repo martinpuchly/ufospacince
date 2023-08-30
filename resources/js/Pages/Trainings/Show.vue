@@ -5,7 +5,7 @@
             {{ date_time_nice + `, ${training.value_type}, ${training.value_place}` }} 
         </h2>
         <section class="row">
-            <div class="col-4 fs-4">
+            <div class="col-lg-4 fs-4">
                 <div>Zúčastí sa: {{ players_num_on }} hráčov</div>
                 <div>Nezúčastí sa: {{ players_num_off  }} hráčov</div>
             </div>
@@ -14,7 +14,7 @@
             </div>
         </section>
         <section class="row mt-4">
-            <div class="col-4 text-success">
+            <div class="col-md-4 text-success">
                 <h3 class="text-success">Zúčastní sa: </h3>
                 <ul v-if="players_on.data.length">
                     <li v-for="player in players_on.data">{{ player.name }}</li>
@@ -23,7 +23,7 @@
                     Nikto s viditelným profilom sa zatiaľ účasť na tréningu nepotvrdil.
                 </div>
             </div>
-            <div class="col-4 text-danger">
+            <div class="col-md-4 text-danger">
                 <h3 class="text-danger">Nezúčastní sa: </h3>
                 <ul v-if="players_off.data.length">
                     <li v-for="player in players_off.data">{{ player.name }}</li>
