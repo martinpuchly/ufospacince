@@ -18,7 +18,7 @@
                 <div class="fw-bold fs-5 color-p text-decoration-underline">
                   {{ training.nicer_date_time }}
                 </div>
-                <div class="fs-5"><span class="fw-bold color-p">Typ: </span>{{ training.value_type }} tréning</div>
+                <div class="fs-5"><span class="fw-bold color-p">Typ: </span>{{ training.value_type }}</div>
                 <div class="fs-5"><span class="fw-bold color-p">Miesto: </span>{{ training.value_place }}</div>
             </div>
           </section>

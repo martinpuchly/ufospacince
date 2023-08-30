@@ -2,12 +2,12 @@
     <div class="container container-main pb-5 rounded-bottom"> 
         <header>
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-2 text-center">
                     <Link :href="route('/')"><img src="/images/logo.png" class="img-fluid px-3 py-2" style="max-height: 8rem;" alt="logo U.F.O. Špačince"></Link>
                 </div>
-                <div class="col-sm-10 my-auto">
+                <div class="col-sm-10 my-auto text-center text-md-start">
                     <div class="header-title">U.F.O. Špačince</div>    
-                    <div class="header-subtitle">ultimate frisbee team</div>    
+                    <div class="header-subtitle d-none d-sm-block">ultimate frisbee team</div>    
                 </div>
             </div>
             <Nav/>

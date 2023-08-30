@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+
+Sitemap: https://ufospacince.mweb.sk/sitemap.xml
+

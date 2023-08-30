@@ -6,7 +6,7 @@
   <div class="carousel-inner">
     <div class="carousel-item" v-for="(item, index) in slides" :class="index==0 ? 'active' : ''" style="height: 25em">
       <img :src="item.full_picture_path" class="d-block w-100" style="height: 100%; object-fit: cover;" alt="">
-      <div class="carousel-caption d-none d-md-block">
+      <div class="carousel-caption">
         <a v-if="item.link" :href="item.link" style="color:white">
             <h5 style="color:white; font-size: 1.5rem;">{{ item.title }}</h5>
         </a>
