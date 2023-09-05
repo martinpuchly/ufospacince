@@ -1,7 +1,7 @@
 <template>
     <AppLayout>
         <h2>Kontakt:</h2>
-        <form @submit.prevent="submit" >
+        <form @submit.prevent="recaptcha" >
             <div class="row">
                 <div class="col-md-6">
                     <label for="email" class="form-label">Vaša emailová adresa: </label>
@@ -38,6 +38,7 @@
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue'
     import { useForm, Head, Link } from '@inertiajs/vue3'
+    import { useReCaptcha } from "vue-recaptcha-v3";
 
     const props = defineProps({
         user_email: String,
@@ -48,9 +49,15 @@
     const form = useForm({
         email: props.user_email ? props.user_email : null,
         text: null,
-
+        captcha_token :null,
     })
 
+    const { executeRecaptcha, recaptchaLoaded } = useReCaptcha()
+    const recaptcha = async () => {
+      await recaptchaLoaded()
+      form.captcha_token = await executeRecaptcha('login')
+      submit();
+    }
 
     function submit() {
         form.post(route('contact.add'), {

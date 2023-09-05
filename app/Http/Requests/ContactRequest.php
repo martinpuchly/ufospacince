@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\Recaptcha;
 
 class ContactRequest extends FormRequest
 {
@@ -25,6 +25,7 @@ class ContactRequest extends FormRequest
         return   [
             'email' => 'required|email',
             'text' => 'required|min:10',
+            'captcha_token'  => [new Recaptcha],
         ];
     }
 
