@@ -105,8 +105,12 @@ h1, h2, h3, h4, h5, h6{
     @extend .img-fluid
   }
 
-  .fb-page, 
-.fb-page span, 
-.fb-page span iframe[style] { 
-    width: 100% !important; 
-}
+    .fb-page, 
+    .fb-page span, 
+    .fb-page span iframe[style] { 
+        width: 100% !important; 
+    }
+    
+    .grecaptcha-badge { 
+        visibility: hidden;
+    }
