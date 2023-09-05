@@ -21,20 +21,19 @@
                         <tr v-for="user in users.data" :key="user.id">
                             <td>{{ user.id }}</td>
                             <td>{{ user.name }}</td>
-                            <td>{{ user.email }}</td>
+                            <td class="text-truncate" style="max-width: 150px;">{{ user.email }}</td>
                             <td>
-                                <div class="flex flex-row">
-                                    <Link v-if="$page.props.auth.permissions.includes('user-groups')" :href="route('admin.groups.user', user.id)" title="pridať do skupín" class="btn btn-sm btn-info col-3 mx-2">
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <Link v-if="$page.props.auth.permissions.includes('user-groups')" :href="route('admin.groups.user', user.id)" title="pridať do skupín" class="btn btn-sm btn-info">
                                         skupiny
                                     </Link>
-                                    <Link v-if="$page.props.auth.permissions.includes('user-permissions')"  :href="route('admin.permissions.user', user.id)" title="pridať povolenia" class="btn btn-sm btn-secondary col-3 mx-2">
+                                    <Link v-if="$page.props.auth.permissions.includes('user-permissions')"  :href="route('admin.permissions.user', user.id)" title="pridať povolenia" class="btn btn-sm btn-secondary">
                                         povolenia
                                     </Link>
-                                    <Link v-if="$page.props.auth.permissions.includes('player-add')"  :href="route('admin.player.add', user.id)" title="vytvoriť hráča" class="btn btn-sm btn-warning col-3 mx-2">
+                                    <Link v-if="$page.props.auth.permissions.includes('player-add')"  :href="route('admin.player.add', user.id)" title="vytvoriť hráča" class="btn btn-sm btn-warning">
                                         vytvoriť hráča
                                     </Link>
                                 </div>
-
                             </td>
                         </tr>
                     </tbody>
