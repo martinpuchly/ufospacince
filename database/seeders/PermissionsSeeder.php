@@ -16,15 +16,15 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
     #PERMISSION
-        Permission::insert(['main_name' => 'Povolenia', 'name' => 'spravovať povolenia', 'key' => 'permissions', 'route' => 'admin.permissions', 'link_in_admin_menu' => 1]);
+        Permission::insert(['main_name' => 'Stránka', 'name' => 'Povolenia', 'key' => 'permissions', 'route' => 'admin.permissions', 'link_in_admin_menu' => 1]);
 
     #GROUPS
-        Permission::insert(['main_name' => 'Skupiny', 'name' => 'zobraziť skupiny', 'key' => 'groups', 'route' => 'admin.groups', 'link_in_admin_menu' => 1]);
-        Permission::insert(['main_name' => 'Skupiny', 'name' => 'pridať skupinu', 'key' => 'group-add', 'route' => 'admin.group.add', 'link_in_admin_menu' => 1]);
-        Permission::insert(['main_name' => 'Skupiny', 'name' => 'upraviť skupinu', 'key' => 'group-edit', 'route' => 'admin.group.edit', 'link_in_admin_menu' => 0]);
-        Permission::insert(['main_name' => 'Skupiny', 'name' => 'vymazať skupinu', 'key' => 'group-delete', 'route' => 'admin.group.edit', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Stránka', 'name' => 'Skupiny', 'key' => 'groups', 'route' => 'admin.groups', 'link_in_admin_menu' => 1]);
+        Permission::insert(['main_name' => 'Stránka', 'name' => 'pridať skupinu', 'key' => 'group-add', 'route' => 'admin.group.add', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Stránka', 'name' => 'upraviť skupinu', 'key' => 'group-edit', 'route' => 'admin.group.edit', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Stránka', 'name' => 'vymazať skupinu', 'key' => 'group-delete', 'route' => 'admin.group.edit', 'link_in_admin_menu' => 0]);
     #GROUPS - PERMISSION
-        Permission::insert(['main_name' => 'Skupiny', 'name' => 'povolenia skupiny', 'key' => 'group-permissions', 'route' => 'admin.permissions.group', 'link_in_admin_menu' => 0]);
+        Permission::insert(['main_name' => 'Stránka', 'name' => 'povolenia skupiny', 'key' => 'group-permissions', 'route' => 'admin.permissions.group', 'link_in_admin_menu' => 0]);
 
     #USERS
         Permission::insert(['main_name' => 'Používateľia', 'name' => 'UŽÍVATEĽIA', 'key' => 'admin-users', 'route' => 'admin.users', 'link_in_admin_menu' => 1]);
@@ -86,10 +86,14 @@ class PermissionsSeeder extends Seeder
         Permission::insert(['main_name' => 'Používateľia', 'name' => 'Správy od užívateľov - čítať', 'key' => 'contact-show', 'route' => 'admin.contact.show', 'link_in_admin_menu' => 0]);
         Permission::insert(['main_name' => 'Používateľia', 'name' => 'Správy od užívateľov - meniť status', 'key' => 'contact-saveStatus', 'route' => 'admin.contact.saveStatus', 'link_in_admin_menu' => 0]);
         Permission::insert(['main_name' => 'Používateľia', 'name' => 'Správy od užívateľov - vymazať', 'key' => 'contact-destroy', 'route' => 'admin.contact.saveStatus', 'link_in_admin_menu' => 0]);
+       
+       
+    #SETTINGS 
+    Permission::insert(['main_name' => 'Stránka', 'name' => 'Nastavenia', 'key' => 'settings', 'route' => 'admin.settings', 'link_in_admin_menu' => 1]);
 
    
    
-        }
+    }
 
 }
 

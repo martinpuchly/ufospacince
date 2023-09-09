@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GroupController;
@@ -16,6 +14,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\SettingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +39,9 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
+# ADMIN ROUTES START
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::get('/uzivatelia', [UserController::class, 'index'])->name('users')->can('adminViewAny', App\Models\User::class);
@@ -130,8 +131,17 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::patch('/trening/{training}/upravit', [TrainingController::class, 'update'])->can('edit', App\Models\Training::class); 
     Route::delete('/trening/{training}/vymazat', [TrainingController::class, 'destroy'])->name('training.delete')->can('destroy', App\Models\Training::class); 
 
+#SETTINGS
+    Route::get('/nastavenia', [SettingController::class, 'index'])->name('settings')->can('edit', App\Models\Setting::class); 
+    Route::get('/nastavenia/{setting}', [SettingController::class, 'edit'])->name('setting.edit')->can('edit', App\Models\Setting::class); 
+    Route::patch('/nastavenia/{setting}', [SettingController::class, 'update'])->can('edit', App\Models\Setting::class); 
+
 
 });
+# ADMIN ROUTES KONIEC
+
+
+
 
 #HRÁČI
     Route::get('/tim', [PlayerController::class, 'index'])->name('players');
