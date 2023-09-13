@@ -7,11 +7,9 @@
                 <h3>{{ index }}</h3>
                 <div v-for="permission in permissions" v-key="permission.id" >
                     <Link :href="route(permission.route)" v-if="permission.link_in_admin_menu==1">{{ permission.name }}</Link>
+                    <span v-if="permission.key=='contacts'"> (<span class="text-danger">{{ new_msg_num }}</span>/<span class="text-warning">{{ unsolved_msg_num }}</span>)</span>
                 </div>
-
-
            </div>
-
         </div>
     </AppLayout>
 </template>
@@ -21,6 +19,8 @@
     import AppLayout from "@/Layouts/AppLayout.vue";
     import { Link } from "@inertiajs/vue3";
     defineProps({
-        permission_groups: Array    
+        permission_groups: Array,
+        new_msg_num: Number,
+        unsolved_msg_num: Number
         })
 </script>

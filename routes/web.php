@@ -131,6 +131,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::patch('/trening/{training}/upravit', [TrainingController::class, 'update'])->can('edit', App\Models\Training::class); 
     Route::delete('/trening/{training}/vymazat', [TrainingController::class, 'destroy'])->name('training.delete')->can('destroy', App\Models\Training::class); 
 
+
+    Route::get('/trening/{training}/ucast', [TrainingController::class, 'resPresence'])->name('training.presence')->can('setPresence', App\Models\Training::class); 
+    Route::patch('/trening/{training}/ucast', [TrainingController::class, 'saveResPresence'])->can('setPresence', App\Models\Training::class); 
+
+
 #SETTINGS
     Route::get('/nastavenia', [SettingController::class, 'index'])->name('settings')->can('edit', App\Models\Setting::class); 
     Route::get('/nastavenia/{setting}', [SettingController::class, 'edit'])->name('setting.edit')->can('edit', App\Models\Setting::class); 

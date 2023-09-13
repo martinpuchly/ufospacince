@@ -11,9 +11,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\PlayerResource;
+use App\Models\Player;
 
 class TrainingController extends Controller
 {
@@ -105,11 +106,10 @@ class TrainingController extends Controller
     }
 
 
-    public function update(UpdateTrainingRequest $request, Training $training)
+    public function update(UpdateTrainingRequest $request, Training $training): RedirectResponse
     {
         $training->update($request->only(['type', 'place', 'description', 'date_time']));
         return back()->with('succeed', 'Tréning bol upravený.');
-
     }
 
     public function destroy(Training $training): RedirectResponse
@@ -118,9 +118,8 @@ class TrainingController extends Controller
         return back()->with('succeed', 'Tréning bol vymazaný.');
     }
 
-
-
-    public function savePresence(Training $training, int $presence){
+    public function savePresence(Training $training, int $presence): RedirectResponse
+    {
         if(!$tp = DB::table('player_training')->where('player_id', Auth::user()->player->id)->where('training_id', $training->id)->first()){
             DB::table('player_training')->insert([
                 'player_id'=>Auth::user()->player->id,
@@ -138,5 +137,37 @@ class TrainingController extends Controller
         return back()->with('succeed' ,'Účasť na tréningu '.$training->nicer_date_time.' bola uložená.');
 
     }
+
+
+    public function resPresence(Training $training)
+    {
+        return Inertia::render('Admin/Trainings/Presence', [
+            'players'=>Player::all(),
+            'training'=>$training,
+            'training_presence_off'=>DB::table('player_training')->where('a_status', 1)->where('training_id', $training->id)->pluck('player_id')->toArray(),
+            'training_presence_on'=>DB::table('player_training')->where('a_status', 2)->where('training_id', $training->id)->pluck('player_id')->toArray()
+        ]);
+    }
+
+    public function saveResPresence(Request $request, Training $training)
+    {        
+        if(!$tp = DB::table('player_training')->where('player_id', $request->input('player'))->where('training_id', $training->id)->first()){
+            DB::table('player_training')->insert([
+                'player_id'=>$request->input('player'),
+                'training_id'=>$training->id,
+                'a_status'=>$request->input('presence')
+            ]);
+        } else{
+            DB::table('player_training')
+                        ->where('player_id', $request->input('player'))
+                        ->where('training_id', $training->id)
+                        ->update(['a_status' => $request->input('presence')]);
+        }
+        
+        return back()->with('succeed' ,'Účasť na tréningu bola uložená.');
+        
+    }
+
+
 
 }

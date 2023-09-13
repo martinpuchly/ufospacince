@@ -54,6 +54,9 @@
                         </div>
                         <div v-if="$page.props.auth.user && $page.props.auth.user.user_level>=2  && training.passed" class="text-secondary">
                             tréning sa už uskutočnil, nie je možné sa na neho prihlásiť
+                            <div v-if="$page.props.auth.permissions.includes('training-presence')">
+                                <Link :href="route('admin.training.presence', {training: training.id})" class="btn btn-sm btn-info opacity-100">účasť na tréningu</Link>
+                            </div>
                         </div>
                     </div>
                 </div>

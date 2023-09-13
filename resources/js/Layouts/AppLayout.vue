@@ -5,7 +5,7 @@
                 <div class="col-sm-2 text-center">
                     <Link :href="route('/')"><img src="/images/logo.png" class="img-fluid px-3 py-2" style="max-height: 8rem;" alt="logo U.F.O. Špačince"></Link>
                 </div>
-                <div class="col-sm-10 my-auto text-center text-md-start">
+                <div class="col-sm-10 my-auto text-center text-md-start pt-2">
                     <div class="header-title d-none d-sm-block">U.F.O. Špačince</div>    
                     <div class="header-subtitle d-none d-sm-block">ultimate frisbee team</div>    
                 </div>

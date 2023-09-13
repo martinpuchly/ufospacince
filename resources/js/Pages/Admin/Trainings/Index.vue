@@ -40,6 +40,9 @@
                             <td>{{ training.value_type }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <Link v-if="training.passed && $page.props.auth.permissions.includes('training-presence')" :href="route('admin.training.presence', training.id)" title="účasť" class="btn btn-sm btn-info">
+                                        účasť na tréningu
+                                    </Link>
                                     <Link v-if="$page.props.auth.permissions.includes('training-edit')" :href="route('admin.training.edit', training.id)" title="upraviť" class="btn btn-sm btn-success">
                                         upraviť
                                     </Link>

@@ -52,6 +52,8 @@ class PermissionsSeeder extends Seeder
         Permission::insert(['main_name' => 'Tím', 'name' => 'vytvoriť tréning', 'key' => 'training-add', 'route' => 'admin.training.add', 'link_in_admin_menu' => 0]);
         Permission::insert(['main_name' => 'Tím', 'name' => 'upraviť tréning', 'key' => 'training-edit', 'route' => 'admin.training.edit', 'link_in_admin_menu' => 0]);
         Permission::insert(['main_name' => 'Tím', 'name' => 'vymazať tréning', 'key' => 'training-destroy', 'route' => 'admin.training.delete', 'link_in_admin_menu' => 0]);
+        
+        Permission::insert(['main_name' => 'Tím', 'name' => 'účasť na tréningu', 'key' => 'training-presence', 'route' => 'admin.training.presence', 'link_in_admin_menu' => 0]);
 
 
     #POSTS

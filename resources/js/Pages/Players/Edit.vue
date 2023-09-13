@@ -1,5 +1,11 @@
 <template>
     <AppLayout>
+        <nav aria-label="breadcrumb" v-if="$page.props.auth.permissions.includes('admin-players')">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><Link :href="route('admin')">Admin</Link></li>
+                    <li class="breadcrumb-item"><Link :href="route('admin.players')">Hráči</Link></li>
+                </ol>
+            </nav>
         <h1>Upraviť profil hráča</h1>
         <h3>{{ user_name }}</h3>
         <form @submit.prevent="submit" >
@@ -208,7 +214,7 @@
 
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue'
-    import { useForm, router } from '@inertiajs/vue3'
+    import { useForm, router, Link } from '@inertiajs/vue3'
 
 
     const props = defineProps({

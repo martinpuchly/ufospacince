@@ -53,6 +53,12 @@ class TrainingPolicy
         return abort(403);
     }
 
-
+    public function setPresence(User $user): bool | RedirectResponse
+    {
+        if($user->hasPermission('training-presence')){
+            return true;
+        }
+        return abort(403);
+    }
 
 }
