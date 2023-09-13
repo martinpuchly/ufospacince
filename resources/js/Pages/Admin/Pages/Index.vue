@@ -60,8 +60,10 @@
                 <span class="text-red-500 font-semibold" v-else>
                     Zatiaľ neboli pridané žiadne stránky.
                 </span>
-            </div>  
+            </div>
     </AppLayout>
+    <Head title="zoznam stránok"></Head>
+
 </template>
 
 
@@ -69,7 +71,7 @@
 
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue'
-    import { Link, router } from '@inertiajs/vue3'
+    import { Link, router, Head } from '@inertiajs/vue3'
 
 
     const props = defineProps({

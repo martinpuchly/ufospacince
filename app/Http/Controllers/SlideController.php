@@ -8,9 +8,10 @@ use App\Models\Slide;
 use App\Http\Requests\SlideCreateRequest;
 use App\Http\Requests\SlideUpdateRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
 
 class SlideController extends Controller
 {
@@ -35,10 +36,16 @@ class SlideController extends Controller
         $data = $request->only(['title', 'description', 'link', 'position', 'active']);
         if ($request->hasFile('picture') && $request->file('picture')->isValid()) {
             $fileName = time() . '.' . $request->picture->extension();
-            $request->picture->storeAs('public/slides', $fileName);
-            
+            $image = $request->file('picture');
+
+            $image = Image::make($image->path());
+            $image->resize(640, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image->save(public_path('storage/slides/' .$fileName));            
             $data = array_merge($data, ['picture'=>$fileName]);
         }
+
         DB::table('slides')->increment('position');
         $data['position'] = 1;
         $slide = Slide::create($data);
@@ -56,9 +63,16 @@ class SlideController extends Controller
     public function update(SlideUpdateRequest $request, Slide $slide): RedirectResponse
     {
         $slide->fill($request->only(['title', 'description', 'link', 'active']));
+      
         if ($request->hasFile('picture') && $request->file('picture')->isValid()) {
             $fileName = time() . '.' . $request->picture->extension();
-            $request->picture->storeAs('public/slides', $fileName);
+            $image = $request->file('picture');
+
+            $image = Image::make($image->path());
+            $image->resize(640, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image->save(public_path('storage/slides/' .$fileName));            
             $slide->fill(['picture'=>$fileName]);
         }
         
