@@ -69,7 +69,7 @@ class SlideController extends Controller
             $image = $request->file('picture');
 
             $image = Image::make($image->path());
-            $image->resize(640, null, function ($constraint) {
+            $image->resize(1024, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
             $image->save(public_path('storage/slides/' .$fileName));            
