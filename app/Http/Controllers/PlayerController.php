@@ -11,8 +11,8 @@ use App\Http\Requests\PlayerRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Resources\PlayerResource;
+use Intervention\Image\Facades\Image;
 
-use Illuminate\Support\Str;
 
 class PlayerController extends Controller
 {
@@ -106,10 +106,15 @@ class PlayerController extends Controller
             'show_shirt_number', 'show_photo', 'show_about', 'show_user', 'user_id', 'show_player', 'slug'
         ]));
 
-
         if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
             $fileName = time() . '.' . $request->photo->extension();
-            $request->photo->storeAs('public/players', $fileName);
+            $image = $request->file('photo');
+
+            $image = Image::make($image->path());
+            $image->resize(640, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image->save(public_path('storage/players/' .$fileName));            
             $player->fill(['photo'=>$fileName]);
         }
         $player->save();
@@ -165,5 +170,15 @@ class PlayerController extends Controller
         $player->forceDelete();
         return back()->with('succeed', 'Hráč bol trvale vymazaný.');
 
+    }
+
+
+    public function setActive(Request $request): RedirectResponse
+    {
+        $player = Player::withTrashed()->findOrFail($request->input('player'));
+        $player->update([
+            'active'=>$player->active == 1 ? 0 : 1
+        ]);
+        return back()->with('succeed', 'Hráčovi bol upravený stav.'); 
     }
 }

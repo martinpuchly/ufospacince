@@ -10,7 +10,7 @@
 
             <div class="row border-bottom mb-2 pb-2" v-for="player in players">
                 <div class="col-3">
-                    {{ `${player.first_name} ${player.last_name}` }}
+                    {{ `${player.last_name} ${player.first_name}` }}
                 </div>
                 <div class="col">
                     <button type="button" class="btn btn-sm mx-2" :class="training_presence_off.includes(player.id) ? 'btn-danger' : ' btn-outline-danger'" @click.prevent="savePresence(player.id, 1)">nezúčastnil sa</button>

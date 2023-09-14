@@ -74,7 +74,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::post('/hrac/novy/{user?}', [PlayerController::class, 'store'])->can('create', App\Models\Player::class);
     Route::post('/hrac/{player}/restore', [PlayerController::class, 'restore'])->name('player.restore')->can('restore', App\Models\Player::class);
     Route::delete('/hrac/{player}/destroy', [PlayerController::class, 'destroy'])->name('player.destroy')->can('destroy', App\Models\Player::class);
-    Route::patch('/hrac/{player}/setuser', [PlayerController::class, 'setUser'])->name('player.setUser')->can('set_user', App\Models\Player::class);
+    Route::patch('/hrac/{player}/setuser', [PlayerController::class, 'setUser'])->name('player.setUser')->can('edit', App\Models\Player::class);
+    Route::patch('/hrac/setActive', [PlayerController::class, 'setActive'])->name('player.setActive')->can('edit', App\Models\Player::class);
 
 #SLIDER
     Route::get('/slides', [SlideController::class, 'index'])->name('slides')->can('viewAny', App\Models\Slide::class);

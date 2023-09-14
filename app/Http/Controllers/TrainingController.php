@@ -142,7 +142,7 @@ class TrainingController extends Controller
     public function resPresence(Training $training)
     {
         return Inertia::render('Admin/Trainings/Presence', [
-            'players'=>Player::all(),
+            'players'=>Player::active()->orderBy('last_name', 'ASC')->get(),
             'training'=>$training,
             'training_presence_off'=>DB::table('player_training')->where('a_status', 1)->where('training_id', $training->id)->pluck('player_id')->toArray(),
             'training_presence_on'=>DB::table('player_training')->where('a_status', 2)->where('training_id', $training->id)->pluck('player_id')->toArray()

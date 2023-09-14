@@ -55,9 +55,9 @@ class Player extends Model
     public function scopeShowable($query)
     {
         $level = Auth::check() ? Auth::user()->userLevel : 0;
-        return $query->whereNotNull('first_name')->where('show_first_name', '<=', $level)
-                        ->orWhereNotNull('last_name')->where('show_last_name', '<=', $level)
-                        ->orWhereNotNull('nickname')->where('show_nickname', '<=', $level);
+        return $query->whereNotNull('first_name')->where('show_first_name', '<=', $level)->where('active',1)
+                        ->orWhereNotNull('last_name')->where('show_last_name', '<=', $level)->where('active',1)
+                        ->orWhereNotNull('nickname')->where('show_nickname', '<=', $level)->where('active',1);
     }
 
     protected function fullPhotoPath(): Attribute
@@ -75,5 +75,9 @@ class Player extends Model
         );
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
 
 }

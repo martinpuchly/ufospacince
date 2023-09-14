@@ -23,17 +23,19 @@
                         <th>#</th>
                         <th>Meno</th>
                         <th>Užívateľ</th>
-                        <th>Aktívny</th>
+                        <th v-if="$page.props.auth.permissions.includes('player-edit')">Aktívny</th>
                         <th>možnosti</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="player in players.data">
+                    <tr v-for="player in players.data" :class="!player.active ? 'opacity-25' : ''">
                         <td>{{ player.id }}</td>
                         <td>{{ `${player.first_name} ${player.last_name}` }}</td>
                         <td>{{ player.user ? player.user.name : '' }}</td>
-                        <td>
-
+                        <td v-if="$page.props.auth.permissions.includes('player-edit')">
+                            <div class="form-check form-switch">
+                                <input  class="form-check-input pointer" type="checkbox" role="switch" :id="'player_active_'+player.id" :checked="player.active" @click="setActive(player.id)">
+                            </div>   
                         </td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -96,7 +98,6 @@
         }
     }
 
-
     function res(id, name) {
         if(confirm(`Skutočne chcete obnoviť hráča ${name}?`)){
             router.post(route('admin.player.restore', {player: id}))
@@ -104,4 +105,10 @@
         }
     }
 
+
+    const setActive = (id) => {
+        router.patch(route('admin.player.setActive'), {player: id}, {
+            preserveScroll: true
+        })
+    }
 </script>
