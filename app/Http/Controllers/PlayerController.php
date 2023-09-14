@@ -35,6 +35,7 @@ class PlayerController extends Controller
     {
         return Inertia::render('Players/Index', [
             'players'=> PlayerResource::collection(Player::showable()->get()),
+            'players_active_num'=>Player::active()->count(),
         ]);
     }
 

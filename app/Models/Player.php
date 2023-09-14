@@ -43,7 +43,7 @@ class Player extends Model
         $level = Auth::check() ? Auth::user()->userLevel : 0;
 
         if($this->first_name && $level >= $this->show_first_name) $name.=$this->first_name.' ';
-        if($this->nickname && $level >= $this->show_nickname) $name.=$this->nickname.' ';
+        if($this->nickname && $level >= $this->show_nickname) $name.='"'.$this->nickname.'" ';
         if($this->last_name && $level >= $this->show_last_name) $name.=$this->last_name;
 
         return new Attribute(

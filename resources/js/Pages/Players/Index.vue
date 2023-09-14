@@ -17,7 +17,7 @@
             </div>
             <div class="d-none d-md-block col-sm-3">
                 <h3>Štatistiky</h3>
-                Aktívny hráči: {{ players.length }}
+                Aktívny hráči: {{ players_active_num }}
             </div>
         </div>
     </AppLayout>
@@ -37,7 +37,8 @@
     import { Head, Link } from '@inertiajs/vue3';
 
     const props = defineProps({
-        players: Object
+        players: Object,
+        players_active_num: Number
     })
 
 
