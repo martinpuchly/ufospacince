@@ -89,6 +89,7 @@ class TrainingController extends Controller
             Training::create([
                 'type'=>$request->type,
                 'place'=>$request->place,
+                'description'=>$request->description,
                 'date_time'=>$date
             ]);
         }
