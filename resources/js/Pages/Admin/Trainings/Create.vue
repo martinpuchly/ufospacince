@@ -55,7 +55,7 @@
                             {{ errors.dates }}
                     </div>
                     <div v-for="(d, index) in form.dates">
-                        {{ `${new Date(d).getDate()}.${new Date(d).getMonth()}.${new Date(d).getFullYear()} ${new Date(d).getHours()}:${new Date(d).getMinutes()<10 ? '0' : ''}${new Date(d).getMinutes()}`}}
+                        {{ d }}
                         <a @click.prevent="remDate(index)" href="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
@@ -99,8 +99,21 @@
 
     var sDate = "";
     const setDate = () => {
-        form.dates.push(`${sDate} ${form.time}`)
+        const date = new Date(`${sDate}T${form.time}`);
+
+        const year = date.getFullYear();
+        const month = zerofill(date.getMonth()+1);
+        const day = zerofill(date.getDate());
+
+        form.dates.push(`${day}.${month}.${year} ${form.time}`)
+        console.log(form.dates)
     }
+
+
+    function zerofill(i) {
+        return (i < 10 ? '0' : '') + i;
+    }
+
     const remDate = (index) => {
         form.dates.splice(index, 1); 
     }

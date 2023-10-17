@@ -43,4 +43,19 @@ class StoreTrainingRequest extends FormRequest
             'description.min' => 'Doplňujúce informácie musia obsahovať minimálne :min znakov.',
         ];
     }
+
+
+    protected function prepareForValidation(): void
+    {
+        $dates_date = [];
+        foreach($this->dates as $d){
+            $dates_date[] = date_create_from_format("d.m.Y H:i", $d);
+        }
+
+        $this->merge([
+            'dates' => $dates_date,
+        ]);
+    }
+
+
 }

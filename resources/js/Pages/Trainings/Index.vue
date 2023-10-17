@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col-lg-5 col-md-6 pr-5">
                         <h3>
-                            {{ `${new Date(training.date_time).getDate()}.${new Date(training.date_time).getMonth()+1} ${new Date(training.date_time).getFullYear()}` }}
+                            {{ `${new Date(training.date_time).getDate()}.${new Date(training.date_time).getMonth()+1}.${new Date(training.date_time).getFullYear()}` }}
                             {{ `o ${new Date(training.date_time).getHours()}:${new Date(training.date_time).getMinutes().toString().replace(/^(\d)$/, '0$1')} hod.` }}
                         </h3>
                         <div class="fs-4">
