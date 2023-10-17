@@ -84,7 +84,7 @@ class User extends Authenticatable
             $permmissions = array_merge($permmissions, $group->permissions->pluck('key')->toArray());
         }
         $permmissions = array_merge($permmissions, $this->permissions->pluck('key')->toArray());
-        return array_unique($permmissions);
+        return array_values(array_unique($permmissions));
     }
 
     public function hasPermission($permission_key = ""): bool
