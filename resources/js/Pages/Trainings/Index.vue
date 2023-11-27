@@ -94,7 +94,7 @@
 
         function setNextMonth (props)  {
             if(props.month==12){
-                return `${props.year+1}-01`;
+                return `${Number(props.year)+1}-01`;
             }
             return `${props.year}-${Number(props.month)+1}`;
         }
