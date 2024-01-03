@@ -6,7 +6,7 @@
             <Slider :slides="slides"></Slider>
           </section>
           <section class="mt-5">
-            <h2>Najnovšie články:</h2>
+            <h2 class="text-decoration-underline mt-3 mb-4">Najnovšie články:</h2>
             <PostBlock v-for="post in posts" v-key="post.id" :post="post" ></PostBlock>
 
           </section>
