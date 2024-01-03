@@ -7,14 +7,14 @@
           </section>
           <section class="mt-5">
             <h2 class="text-decoration-underline mt-3 mb-4">Najnovšie články:</h2>
-            <PostBlock v-for="post in posts" v-key="post.id" :post="post" ></PostBlock>
+            <PostBlock v-for="post in posts" v-bind:key="post.id" :post="post" ></PostBlock>
 
           </section>
         </div>
         <div class="col-md-3 border-start">
           <section v-if="trainings.length" class="mb-5">
             <h3>Najbližšie tréningy</h3>
-            <div v-for="training in trainings" class="border-bottom mb-3 pb-3">
+            <div v-for="training in trainings" v-bind:key="training.id" class="border-bottom mb-3 pb-3">
                 <div class="fw-bold fs-5 color-p text-decoration-underline">
                   {{ training.nicer_date_time }}
                 </div>
